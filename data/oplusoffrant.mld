@@ -1,3 +1,4 @@
+### MLD ###
 
 Article ( id_article, nom, photo, description, prix_de_depart, date_de_fin, montant, date_et_heure, #id_utilisateur_vente, #id_utilisateur_achat )
 Utilisateur ( id_utilisateur, adresse_mail, nom, prenom, mot_de_passe )
