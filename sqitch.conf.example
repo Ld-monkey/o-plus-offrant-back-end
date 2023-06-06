@@ -1,0 +1,8 @@
+[core]
+	engine = pg
+	top_dir = data
+	# plan_file = migrations/sqitch.plan
+[engine "pg"]
+	target = db:pg:o_plus_offrant
+	# registry = sqitch
+	# client = psql
