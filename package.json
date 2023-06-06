@@ -1,0 +1,26 @@
+{
+  "name": "y",
+  "version": "1.0.0",
+  "description": "en cours de rédaction...",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "sqitch revert -y; sqitch deploy; psql -d o_plus_offrant -f data/seeding/seeding.sql",
+    "dev": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/O-clock-Starship/projet-06-o-plus-offrant-back.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/O-clock-Starship/projet-06-o-plus-offrant-back/issues"
+  },
+  "homepage": "https://github.com/O-clock-Starship/projet-06-o-plus-offrant-back#readme",
+  "dependencies": {
+    "dotenv": "^16.1.4",
+    "express": "^4.18.2",
+    "pg": "^8.11.0"
+  }
+}
