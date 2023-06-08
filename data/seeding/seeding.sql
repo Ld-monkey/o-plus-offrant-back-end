@@ -1,3 +1,4 @@
+-- SQLBook: Code
 BEGIN;
 
 TRUNCATE article, utilisateur, categorie, encherir, categorie_article RESTART IDENTITY;
