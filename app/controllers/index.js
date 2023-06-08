@@ -50,7 +50,31 @@ const mainController = {
       console.trace(error);
       res.status(500).send('Error 500');
     }
+  },
+
+  async AddCategory(req, res) {
+  //const id = Number(req.params.id);
+    try {
+      const product = await dataMapper.AddOneCategory(req.body);
+      res.send(product);
+      }
+    catch(error){
+      console.trace(error);
+      res.status(500).send('Youhou !! Error 500');
+    }
   }
+
+/*   async AddProduct(req, res) {
+    //const id = Number(req.params.id);
+    try {
+      const product = await dataMapper.AddOneProduct();
+        //res.send(product);
+      }
+    catch(error){
+      console.trace(error);
+      res.status(500).send('Youhou Error 500');
+    }
+  } */
 
 };
 

@@ -46,7 +46,41 @@ const dataMapper = {
 
     // Renvoyez les résultats
     return result.rows;
+  },
+
+/*   async AddOneCategory(nom) {
+    // Effectuez la requête dans la base de données pour récupérer les produits
+    const preparedQuery = `INSERT INTO "categorie"(nom)VALUES ($1);`;
+    const values = [nom];
+    const result = await client.query(preparedQuery, values);
+
+    // Renvoyez les résultats
+    return result.rows;
+  }, */
+
+
+  async AddOneCategory(JSON) {
+    //const JSON = {"nom":"Nouvelle categorie"};
+    const preparedQuery = {
+      text: 'INSERT INTO "categorie" ("nom") VALUES ($1) RETURNING *',
+      values: [JSON],
+    };
+    const newCategory = await client.query(preparedQuery);
+    return newCategory.rows[0];
   }
+
+
+/*   async AddOneProduct(nom, photo, description, prix_de_depart, date_de_fin, date_et_heure, utilisateur_vente_id) {
+    // Effectuez la requête dans la base de données pour récupérer les produits
+    const preparedQuery = `
+    INSERT INTO article(nom, photo, description, prix_de_depart, date_de_fin, date_et_heure, utilisateur_vente_id)
+    VALUES ($1, $2, $3, $4, $5, $6, $7);`;
+    const values = [nom, photo, description, prix_de_depart, date_de_fin, date_et_heure, utilisateur_vente_id];
+    const result = await client.query(preparedQuery, values);
+
+    // Renvoyez les résultats
+    return result.rows;
+  } */
 };
 
 module.exports = dataMapper;
