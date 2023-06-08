@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS "article" (
     "description" TEXT,
     "prix_de_depart" DECIMAL NOT NULL,
     "date_de_fin" TIMESTAMPTZ NOT NULL,
-    "montant" DECIMAL NOT NULL,
+    "montant" DECIMAL,
     "date_et_heure" TIMESTAMPTZ NOT NULL DEFAULT NOW()
 
 );
@@ -57,7 +57,7 @@ CREATE TABLE IF NOT EXISTS "categorie_article" (
 -- foreignkeys and created_at/updated_at columns insertions
 ALTER TABLE "article" 
    ADD COLUMN "utilisateur_vente_id" INT NOT NULL REFERENCES "utilisateur" ("id"),
-   ADD COLUMN "utilisateur_achat_id" INT NOT NULL REFERENCES "utilisateur" ("id"),
+   ADD COLUMN "utilisateur_achat_id" INT REFERENCES "utilisateur" ("id"),
    ADD COLUMN "created_at" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
    ADD COLUMN "updated_at" TIMESTAMPTZ;
 
