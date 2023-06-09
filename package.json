@@ -19,8 +19,11 @@
   },
   "homepage": "https://github.com/O-clock-Starship/projet-06-o-plus-offrant-back#readme",
   "dependencies": {
+    "bcrypt": "^5.1.0",
     "dotenv": "^16.1.4",
+    "email-validator": "^2.0.4",
     "express": "^4.18.2",
+    "express-session": "^1.17.3",
     "pg": "^8.11.0"
   }
 }

@@ -15,7 +15,6 @@ const mainController = {
   },
 
   async OneProductPage(req, res) {
-    // On récupère un id, potentiellement celui d'un produit
     const id = Number(req.params.id);
 
     try {
@@ -74,18 +73,6 @@ const mainController = {
         res.status(500).send('Youhou 2 !! Error 500');
       }
     }
-
-/*   async AddProduct(req, res) {
-    //const id = Number(req.params.id);
-    try {
-      const product = await dataMapper.AddOneProduct();
-        //res.send(product);
-      }
-    catch(error){
-      console.trace(error);
-      res.status(500).send('Youhou Error 500');
-    }
-  } */
 
 };
 
