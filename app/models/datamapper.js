@@ -56,6 +56,13 @@ const dataMapper = {
     return newProduct.rows[0];
   },
 
+  async DeleteOneProduct(id) {
+    const preparedQuery = {
+      text: 'DELETE FROM "article" WHERE "id" = $1',
+      values: [id],
+    };
+  },
+
   async getOneUserByEmail(email){
     const preparedQuery = `SELECT * FROM utilisateur
     WHERE "adresse_mail" = $1`

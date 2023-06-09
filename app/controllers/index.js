@@ -74,6 +74,18 @@ const mainController = {
       }
     },
 
+  async DeleteProduct(req, res) {
+    const id = Number(req.params.id);
+    try {
+        const product = await dataMapper.DeleteOneProduct(id);
+        res.send(product);
+        }
+      catch(error){
+        console.trace(error);
+        res.status(500).send('Youhou 2 !! Error 500');
+      }
+    },
+
   async login(req, res) {
     try {
       const login = await dataMapper.getOneUserByEmail(req.body.adresse_mail);
@@ -104,6 +116,8 @@ const mainController = {
       res.status(500).send('Youhou !! Error 500');
     }
   }
+
+
   
 
 };
