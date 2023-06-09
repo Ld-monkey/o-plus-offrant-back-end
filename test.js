@@ -211,3 +211,66 @@ const controller = {
   
       response.json({ status: 'success' });
     }, */
+
+
+
+    const bcrypt = require('bcrypt');
+const emailValidator = require('email-validator');
+// Importez vos propres fonctions pour interagir avec la base de données
+// Par exemple, si vous utilisez MySQL, vous pouvez utiliser le module mysql2
+const { createUser, getUserByEmail } = require('../database');
+
+const userController = {
+    index: (req, res) => {
+        res.render('register');
+    },
+
+    register: async (req, res) => {
+        try {
+            const { firstname, lastname, email, password, passwordConfirm } = req.body;
+
+            if (!emailValidator.validate(email)) {
+                res.render('register', {
+                    error: 'Email invalide',
+                });
+                return;
+            }
+
+            if (password !== passwordConfirm) {
+                res.render('register', {
+                    error: 'Le mot de passe ne correspond pas',
+                });
+                return;
+            }
+
+            const checkUser = await getUserByEmail(email);
+            if (checkUser) {
+                res.render('register', {
+                    error: 'Email déjà utilisé',
+                });
+                return;
+            }
+
+            const hashedPassword = await bcrypt.hash(password, 10);
+
+            const user = await createUser({
+                name: firstname + ' ' + lastname,
+                email: email,
+                password: hashedPassword,
+            });
+
+            res.render('login', {
+                message: 'Vous pouvez maintenant vous connecter !',
+            });
+        } catch (error) {
+            console.log(error);
+            res.render('register', { error: error.message });
+        }
+    },
+
+    show: async (req, res) => {
+        res.render('dashboard/dashboard');
+    },
+};
+
+module.exports = userController;
