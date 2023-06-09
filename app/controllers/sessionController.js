@@ -1,9 +1,10 @@
 const bcrypt = require('bcrypt');
 const { User } = require('../models/user.json');
+const dataMapper = require('../models/datamapper');
 
 const sessionController = {
     index: (req, res) => {
-      console.log("Go te login");
+      console.log("Va te logger");
       //res.render('login');
     },
 

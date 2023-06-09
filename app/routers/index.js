@@ -24,22 +24,20 @@ router.post('/product/creation/add', controller.AddProduct);
 // LOGIN --------------------------------------------------------------------------
 
 // Affichage page formulaire de login
-router.get('/login', sessionController.index);
-router.post('/login', sessionController.login);
-router.get('/logout', sessionController.logout);
+router.get('/login', sessionController.index); // envoie vers la page de login FRONT
+router.post('/login', controller.login); // démarre la session user si user existe
+//router.get('/logout', sessionController.logout);
 
 
 
+// Affichage page formulaire register
+router.get('/register', userController.index);  // envoie vers la page de login FRONT
+router.post('/register', userController.register); // create user
 
-/* // Affichage page formulaire register
-router.get('/register', userController.index);
-router.post('/register', userController.register);
-
-// user profile avec middleware
+/* // user profile avec middleware
 router.get('/profile', auth, userController.show);
 // admin avec chained middlewares
-router.get('/dashboard', [auth, isAdmin], adminController.index); */
-
+router.get('/dashboard', [auth, isAdmin], adminController.index); */ 
 
 
 module.exports = router;
