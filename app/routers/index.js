@@ -10,36 +10,38 @@ const adminController = require('../controllers/adminController.js');
 const auth = require('../models/middlewares/auth.js');
 const isAdmin = require('../models/middlewares/isAdmin.js');
 
+// routes des articles
+router.get('/api/products', controller.AllProductsPage);                      // affiche tous les articles
+router.get('/api/products/:id', controller.OneProductPage);                   // affiche un article grâce à son id
+router.post('/product/creation/add', controller.AddProduct);                  // ajoute un article depuis un JSON
+router.patch('/product/:id/modify', controller.AddProduct);                   // A MODIFIER !! modifie un article grâce à son id et depuis un JSON 
+router.delete('/product/:id/delete', controller.DeleteProduct);                  // A MODIFIER !!! supprime un article grâce grâce son id
+router.get('/api/category/:id/products', controller.ProductsOfOneCategory);   // affiche tous les produits d'une catégorie 
 
-router.get('/api/products', controller.AllProductsPage);
-router.get('/api/products/:id', controller.OneProductPage);
 
-router.get('/api/categories', controller.AllCategoriesPage);
-router.get('/api/category/:id/products', controller.ProductsOfOneCategory);
+// routes des categories
+router.get('/api/categories', controller.AllCategoriesPage);                  // affiche toutes les catégories
+router.post('/category/creation/add', controller.AddCategory);                // ajoute une catégorie depuis un JSON
 
-router.post('/category/creation/add', controller.AddCategory);
-router.post('/product/creation/add', controller.AddProduct);
 
 
 // LOGIN --------------------------------------------------------------------------
 
 // Affichage page formulaire de login
-router.get('/login', sessionController.index);
-router.post('/login', sessionController.login);
-router.get('/logout', sessionController.logout);
+router.get('/login', sessionController.index); // envoie vers la page de login FRONT
+router.post('/login', controller.login); // démarre la session user si user existe
+//router.get('/logout', sessionController.logout);
 
 
 
+// Affichage page formulaire register
+router.get('/register', userController.index);  // envoie vers la page de login FRONT
+router.post('/register', userController.register); // create user
 
-/* // Affichage page formulaire register
-router.get('/register', userController.index);
-router.post('/register', userController.register);
-
-// user profile avec middleware
+/* // user profile avec middleware
 router.get('/profile', auth, userController.show);
 // admin avec chained middlewares
-router.get('/dashboard', [auth, isAdmin], adminController.index); */
-
+router.get('/dashboard', [auth, isAdmin], adminController.index); */ 
 
 
 module.exports = router;

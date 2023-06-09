@@ -49,7 +49,7 @@ CREATE TABLE IF NOT EXISTS "encherir" (
 
 CREATE TABLE IF NOT EXISTS "categorie_article" (
     "categorie_id" INT NOT NULL REFERENCES "categorie" ("id"),
-    "article_id" INT NOT NULL REFERENCES "article" ("id"),
+    "article_id" INT NOT NULL REFERENCES "article" ("id") ON DELETE CASCADE,
     "created_at" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     "updated_at" TIMESTAMPTZ
 );
@@ -63,7 +63,7 @@ ALTER TABLE "article"
 
 ALTER TABLE "encherir" 
    ADD COLUMN "utilisateur_id" INT NOT NULL REFERENCES "utilisateur" ("id"),
-   ADD COLUMN "article_id" INT NOT NULL REFERENCES "article" ("id"),
+   ADD COLUMN "article_id" INT NOT NULL REFERENCES "article" ("id") ON DELETE CASCADE,
    ADD COLUMN "created_at" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
    ADD COLUMN "updated_at" TIMESTAMPTZ;
 

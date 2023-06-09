@@ -54,6 +54,28 @@ const dataMapper = {
     };
     const newProduct = await client.query(preparedQuery);
     return newProduct.rows[0];
+  },
+
+  async DeleteOneProduct(id) {
+    const preparedQuery = {
+      text: 'DELETE FROM "article" WHERE "id" = $1',
+      values: [id],
+    };
+  },
+
+  async getOneUserByEmail(email){
+    const preparedQuery = `SELECT * FROM utilisateur
+    WHERE "adresse_mail" = $1`
+
+    const values = [email];
+    const result = await client.query(preparedQuery, values);
+    const user = result.rows[0];
+    if(user){
+      return user;
+    }
+    else {
+      return null;
+    }
   }
 
 };
