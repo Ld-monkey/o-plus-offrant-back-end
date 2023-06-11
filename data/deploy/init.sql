@@ -26,9 +26,9 @@ CREATE TABLE IF NOT EXISTS "article" (
 
 CREATE TABLE IF NOT EXISTS "utilisateur" (
     "id" INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    "adresse_mail" email NOT NULL UNIQUE,
-    "nom" TEXT NOT NULL,
     "prenom" TEXT NOT NULL,
+    "nom" TEXT NOT NULL,
+    "adresse_mail" email NOT NULL UNIQUE,
     "mot_de_passe" TEXT NOT NULL,
     "created_at" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     "updated_at" TIMESTAMPTZ
