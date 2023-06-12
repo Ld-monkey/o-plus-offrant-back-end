@@ -1,11 +1,12 @@
+-- SQLBook: Code
 BEGIN;
 
 TRUNCATE article, utilisateur, categorie, encherir, categorie_article RESTART IDENTITY;
 
-INSERT INTO utilisateur(adresse_mail, nom, prenom, mot_de_passe) VALUES 
-('toto@toto.fr', 'Toto', 'Tony', '1234'),
-('toto2@toto.fr', 'Toto', 'Antonio', '1234'),
-('toto3@toto.fr', 'Toto', 'Anthony', '1234');
+INSERT INTO utilisateur(prenom, nom, adresse_mail, mot_de_passe) VALUES 
+('Tony', 'Toto', 'Tony@email.com', '$2b$10$XSgPV66JaFdhsLi0ThtCkOX/u01cnWajZiVAzdkiIKb4r7XScdIi6'),
+('Antonio', 'Toti', 'Antonio@email.com', '$2b$10$cvupFjo66gXR.ttGoImp/ecCUgCC0wlUwv7VR4xsQ/.3OZEMuBHvi'),
+('Anthony', 'Tito', 'Anthony@email.com', '$2b$10$ilFkuNB9q62mlzlN6KUFtOAYX1hS54Xa9XJTF7fwkVLROQxfoiqEe');
 
 INSERT INTO article(nom, photo, description, prix_de_depart, date_de_fin, montant, date_et_heure, utilisateur_vente_id, utilisateur_achat_id) VALUES
 ('Chaise', './photos/chaise.jpg', 'La plus belle chaise du monde.', 35.50, NOW()-'1 day'::interval+'7 days'::interval, 40.00, NOW()-'1 day'::interval, 1, 2),
