@@ -16,7 +16,7 @@ const auth = require('../models/middlewares/auth.js');
 
 
 // routes des articles-----------------------------------------------------------------------------------------
-router.get('/api/products', controller.AllProductsPage);                      // affiche tous les articles
+//router.get('/api/products', controller.AllProductsPage);                      // affiche tous les articles
 router.get('/api/products/:id', controller.OneProductPage);                   // affiche un article grâce à son id
 router.post('/product/creation/add', controller.AddProduct);                  // ajoute un article depuis un JSON
 router.patch('/product/:id/modify', controller.AddProduct);                   // A MODIFIER !! modifie un article grâce à son id et depuis un JSON 
@@ -32,7 +32,7 @@ router.post('/category/creation/add', controller.AddCategory);                //
 //!! LOGIN  JWT test-----------------------------------------------------------------------------------------------
 
 // routes des users et jwt-----------------------------------------------------------------------------------------
-router.get('/api/users', auth, jwtController.allUsers);                       // affiche tous les articles SI porteur d'un accessToken valide //!! repris de plus haut pour test
+router.get('/api/products', auth, controller.AllProductsPage);                       // affiche tous les articles SI porteur d'un accessToken valide //!! repris de plus haut pour test
 router.post('/api/users', jwtController.addUser);                             // ajoute un utilisateur avec mot de passe crypté à la BDD
 
 router.post('/login', jwtController.login);                                   // identifie un utilisateur via email et mot de passe crypté depuis la BDD

@@ -26,7 +26,7 @@ const jwtController = {
     }
   },
 
-  // voir tous les utilisateurs dans la BDD
+  // 
   login: async (req, res) => {
     try {
       const {adresse_mail,mot_de_passe} = req.body;
