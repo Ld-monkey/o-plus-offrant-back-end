@@ -14,8 +14,19 @@ const dataMapper = {
     const values = [id];
     const result = await client.query(preparedQuery, values);
     const product = result.rows[0];
-    if(product){
-      return product;
+
+    const historicPreparedQuery = `SELECT DISTINCT "encherir"."montant", "utilisateur_id", "article_id", "date", "utilisateur"."prenom", "utilisateur"."nom" 
+    FROM "encherir"
+    JOIN "utilisateur" ON "utilisateur"."id" = "encherir"."utilisateur_id"
+    JOIN "article" ON "article"."utilisateur_achat_id" = "utilisateur"."id"
+    WHERE "encherir"."article_id" = $1`
+    const histValues = [id];
+    const histResult = await client.query(historicPreparedQuery, histValues);
+    const histProduct = histResult.rows;
+    const productPage = {product, histProduct}
+    
+    if(productPage){
+      return productPage;
     }
     else {
       return null;
