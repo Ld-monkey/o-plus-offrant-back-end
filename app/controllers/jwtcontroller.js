@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 
 const jwtController = {
   // voir tous les utilisateurs dans la BDD
-  allUsers: async (__, res) => {
+  AllUsers: async (__, res) => {
     try {
       const users = await client.query('SELECT * FROM "utilisateur"');
       res.json({users : users.rows});
@@ -13,8 +13,9 @@ const jwtController = {
       res.status(500).json({error:error.message});
     }
   },
+
   // enregistrer un utilisateur dans la BDD avec son mot de passe crypté
-  addUser: async (req, res) => {
+  AddUser: async (req, res) => {
     try {
       const hashedPwd = await bcrypt.hash(req.body.mot_de_passe,10);
       const newUser = await client.query
@@ -26,8 +27,8 @@ const jwtController = {
     }
   },
 
-  // 
-  login: async (req, res) => {
+  // s'identifier avec son mail + mdp : donne un accessToken et un refreshToken
+  Login: async (req, res) => {
     try {
       const {adresse_mail,mot_de_passe} = req.body;
       const users = await client.query('SELECT * FROM "utilisateur" WHERE adresse_mail = $1', [adresse_mail] );
@@ -35,18 +36,17 @@ const jwtController = {
       // password check
       const validPwd = await bcrypt.compare(mot_de_passe,users.rows[0].mot_de_passe);
       if(!validPwd) return res.status(401).json({error:"Incorrect password"});
-      // si le check de pwd est ok, on envoie les JWT
+      // si password ok, on envoie les tokens JWT
       let tokens = JwtTokens(users.rows[0]);
-
       res.json(tokens);
-
     } catch (error) {
       res.status(401).json({error:error.message});
     }
   },
 
-// Vérifie si le refreshtoken transporté est valide (ne pas oublier de mettre un refreshtoken dans le Bearer lors des tests)
-  refreshToken: async (req, res) => {
+  // Vérifie si le refreshtoken transporté est valide
+  // (ne pas oublier de mettre un refreshtoken dans le Bearer lors des tests)
+  RefreshToken: async (req, res) => {
     try {
       const authHeader = req.headers.authorization;
       const refreshToken = authHeader.split('Bearer ')[1];
