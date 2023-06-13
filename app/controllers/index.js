@@ -66,9 +66,13 @@ const mainController = {
   // demande l'ajout d'un article
   async AddProduct(req, res) {
     try {
+        // ajout de l'article depuis un JSON
         const { nom, photo, description, prix_de_depart, date_de_fin, date_et_heure, utilisateur_vente_id } = req.body;
         const product = await dataMapper.AddOneProduct(nom, photo, description, prix_de_depart, date_de_fin, date_et_heure, utilisateur_vente_id);
-        res.json({ status : 'success', data : product });
+        // mise à jour de la categorie de l'article via son ID nouvellement crée
+        const idCategory = 2 //!! TODO rendre le choix dynamique (front ?)
+        const updateCategory = await dataMapper.UpdateProductCategory(idCategory, product.id);
+        res.json({ status : 'creation and update successful', data : product, categoryLink : updateCategory })
       }
     catch(error){
       console.trace(error);

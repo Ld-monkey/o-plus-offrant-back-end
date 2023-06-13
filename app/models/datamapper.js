@@ -104,6 +104,16 @@ const dataMapper = {
     return updatedProduct.rows[0];
   },
 
+  // mettre à jour la catégorie d'un article dans la BDD
+  async UpdateProductCategory(idCategory, productId) {
+    const preparedQuery = {
+      text: 'INSERT INTO "categorie_article" ("categorie_id", "article_id") VALUES ($1, $2) RETURNING *',
+      values: [idCategory, productId],
+    };
+    const newProductCategory = await client.query(preparedQuery);
+    return newProductCategory.rows[0];
+  },
+
 
 };
 
