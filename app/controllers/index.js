@@ -42,9 +42,12 @@ const mainController = {
   async ProductsOfOneCategory(req, res) {
     const id = Number(req.params.id);
     try {
+      //renvoi tous les articles d'une catégorie
       const products = await dataMapper.getProductsByCategoryId(id);
-        res.send(products);
-      }
+      //renvoi toutes les catégrories
+      const categories = await dataMapper.AllCategories();
+      res.json({ status : 'success', filteredProducts : products, allCategories : categories});
+    }
     catch(error){
       console.trace(error);
       res.status(500).send('Error 500');
