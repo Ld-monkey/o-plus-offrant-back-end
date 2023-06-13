@@ -4,7 +4,16 @@ const dataMapper = {
   // affiche tous les articles de la BDD
   async AllProducts() {
     const result = await client.query(`SELECT * FROM "article"`);
-    return result.rows;
+    const allProducts = result.rows;
+    const closingAuctions = await client.query(`SELECT * FROM "article" WHERE "date_de_fin">NOW() ORDER BY "date_de_fin" ASC LIMIT 5`)
+    const lastAuctions = closingAuctions.rows;
+    const homePage = {allProducts, lastAuctions}
+    if(homePage) {
+      return homePage;
+    }
+    else {
+      return null;
+    }
   },
 
   // affiche un article d'après son id
