@@ -72,7 +72,7 @@ const dataMapper = {
     return newProduct.rows[0];
   },
 
-  // supprime un article de la BDD
+  // supprime un article de la BDD via son ID
   async DeleteOneProduct(id) {
     const preparedQuery = {
       text: 'DELETE FROM "article" WHERE "id" = $1',
@@ -82,23 +82,19 @@ const dataMapper = {
     if(deleteProduct.rowCount === 1) {
       return console.log("Delete succesful");
     } throw new Error("Delete failed");
-    
   },
 
-  // obtenir un utilisateur via son email
-  async getOneUserByEmail(email){
-    const preparedQuery = `SELECT * FROM utilisateur
-    WHERE "adresse_mail" = $1`
-    const values = [email];
-    const result = await client.query(preparedQuery, values);
-    const user = result.rows[0];
-    if(user){
-      return user;
-    }
-    else {
-      return null;
-    }
-  }
+
+  // modifie un article de la BDD via son ID
+  async UpdateOneProduct(id, nom, photo, description, utilisateur_vente_id) {
+    const preparedQuery = {
+      text: 'UPDATE "article" SET "nom" = $2 , "photo" = $3, "description" = $4, "utilisateur_vente_id" = $5 WHERE "id" = $1 RETURNING *',
+      values: [id, nom, photo, description, utilisateur_vente_id],
+    };
+    const updatedProduct = await client.query(preparedQuery);
+    return updatedProduct.rows[0];
+  },
+
 
 };
 

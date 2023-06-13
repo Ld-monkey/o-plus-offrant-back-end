@@ -87,7 +87,21 @@ const mainController = {
       console.trace(error);
       res.status(500).send('Error 500');
     }
-  }, 
+  },
+
+  // modifie un article
+  async UpdateProduct(req, res) {
+    const id = Number(req.params.id);
+    try {
+      const { nom, photo, description, utilisateur_vente_id } = req.body;
+      const product = await dataMapper.UpdateOneProduct(id, nom, photo, description, utilisateur_vente_id);
+      res.json({ status : 'success', data : product }); //!! TODO modifier la condition d'erreur quand l'ID n'existe pas
+    }
+  catch(error){
+    console.trace(error);
+    res.status(500).send('Error 500');
+  }
+},
 
 };
 
