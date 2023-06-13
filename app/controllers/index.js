@@ -59,7 +59,7 @@ const mainController = {
       }
     catch(error){
       console.trace(error);
-      res.status(500).send('Youhou !! Error 500');
+      res.status(500).send('Error 500');
     }
   },
 
@@ -72,7 +72,7 @@ const mainController = {
       }
     catch(error){
       console.trace(error);
-      res.status(500).send('Youhou 2 !! Error 500');
+      res.status(500).send('Error 500');
     }
   },
 
@@ -80,12 +80,12 @@ const mainController = {
   async DeleteProduct(req, res) {
     const id = Number(req.params.id);
     try {
-        const product = await dataMapper.DeleteOneProduct(id);
-        res.send(product);
+        const deleteProduct = await dataMapper.DeleteOneProduct(id);
+        res.status(200).json(`L'article avec l'ID n°${id} a bien été supprimé`);
       }
     catch(error){
       console.trace(error);
-      res.status(500).send('Youhou 2 !! Error 500');
+      res.status(500).send('Error 500');
     }
   }, 
 

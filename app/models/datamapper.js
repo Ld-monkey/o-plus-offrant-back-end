@@ -78,6 +78,11 @@ const dataMapper = {
       text: 'DELETE FROM "article" WHERE "id" = $1',
       values: [id],
     };
+    const deleteProduct = await client.query(preparedQuery);
+    if(deleteProduct.rowCount === 1) {
+      return console.log("Delete succesful");
+    } throw new Error("Delete failed");
+    
   },
 
   // obtenir un utilisateur via son email
