@@ -4,7 +4,16 @@ const dataMapper = {
   // affiche tous les articles de la BDD
   async AllProducts() {
     const result = await client.query(`SELECT * FROM "article"`);
-    return result.rows;
+    const allProducts = result.rows;
+    const closingAuctions = await client.query(`SELECT * FROM "article" WHERE "date_de_fin">NOW() ORDER BY "date_de_fin" ASC LIMIT 5`)
+    const lastAuctions = closingAuctions.rows;
+    const homePage = {allProducts, lastAuctions}
+    if(homePage) {
+      return homePage;
+    }
+    else {
+      return null;
+    }
   },
 
   // affiche un article d'après son id
@@ -72,28 +81,39 @@ const dataMapper = {
     return newProduct.rows[0];
   },
 
-  // supprime un article de la BDD
+  // supprime un article de la BDD via son ID
   async DeleteOneProduct(id) {
     const preparedQuery = {
       text: 'DELETE FROM "article" WHERE "id" = $1',
       values: [id],
     };
+    const deleteProduct = await client.query(preparedQuery);
+    if(deleteProduct.rowCount === 1) {
+      return console.log("Delete succesful");
+    } throw new Error("Delete failed");
   },
 
-  // obtenir un utilisateur via son email
-  async getOneUserByEmail(email){
-    const preparedQuery = `SELECT * FROM utilisateur
-    WHERE "adresse_mail" = $1`
-    const values = [email];
-    const result = await client.query(preparedQuery, values);
-    const user = result.rows[0];
-    if(user){
-      return user;
-    }
-    else {
-      return null;
-    }
-  }
+
+  // modifie un article de la BDD via son ID
+  async UpdateOneProduct(id, nom, photo, description, utilisateur_vente_id) {
+    const preparedQuery = {
+      text: 'UPDATE "article" SET "nom" = $2 , "photo" = $3, "description" = $4, "utilisateur_vente_id" = $5 WHERE "id" = $1 RETURNING *',
+      values: [id, nom, photo, description, utilisateur_vente_id],
+    };
+    const updatedProduct = await client.query(preparedQuery);
+    return updatedProduct.rows[0];
+  },
+
+  // mettre à jour la catégorie d'un article dans la BDD
+  async UpdateProductCategory(idCategory, productId) {
+    const preparedQuery = {
+      text: 'INSERT INTO "categorie_article" ("categorie_id", "article_id") VALUES ($1, $2) RETURNING *',
+      values: [idCategory, productId],
+    };
+    const newProductCategory = await client.query(preparedQuery);
+    return newProductCategory.rows[0];
+  },
+
 
 };
 
