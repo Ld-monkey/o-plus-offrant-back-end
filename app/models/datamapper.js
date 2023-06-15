@@ -1,13 +1,18 @@
 const client = require('./client');
 
 const dataMapper = {
-  // affiche tous les articles de la BDD
-  async AllProducts() {
-    const result = await client.query(`SELECT * FROM "article"`);
-    const allProducts = result.rows;
+  // affiche tous les articles de la BDD + les catégories + les 5 dernières enchères qui arrivent à expiration
+  async AllArticles() {
+    // récupère tous les articles
+    const articles = await client.query(`SELECT * FROM "article"`);
+    const allArticles = articles.rows;
+    // récupère toutes les catégories
+    const result = await client.query(`SELECT * FROM "categorie"`);
+    const allCategories = result.rows;
+    // récupère les 5 dernières enchères
     const closingAuctions = await client.query(`SELECT * FROM "article" WHERE "date_de_fin">NOW() ORDER BY "date_de_fin" ASC LIMIT 5`)
     const lastAuctions = closingAuctions.rows;
-    const homePage = {allProducts, lastAuctions}
+    const homePage = {allArticles, allCategories, lastAuctions}
     if(homePage) {
       return homePage;
     }
@@ -17,25 +22,28 @@ const dataMapper = {
   },
 
   // affiche un article d'après son id
-  async getOneProduct(id){
-    const preparedQuery = `SELECT * FROM article
-    WHERE "id" = $1`
+  async getOneArticle(id){
+    const articlePreparedQuery = `SELECT * FROM article WHERE "id" = $1`;
     const values = [id];
-    const result = await client.query(preparedQuery, values);
-    const product = result.rows[0];
+    const articlesResult = await client.query(articlePreparedQuery, values);
+    const article = articlesResult.rows[0];
+
+    const categoriesResult = await client.query(`SELECT * FROM "categorie"`);
+    const allCategories = categoriesResult.rows;
 
     const historicPreparedQuery = `SELECT DISTINCT "encherir"."montant", "utilisateur_id", "article_id", "date", "utilisateur"."prenom", "utilisateur"."nom" 
-    FROM "encherir"
-    JOIN "utilisateur" ON "utilisateur"."id" = "encherir"."utilisateur_id"
-    JOIN "article" ON "article"."utilisateur_achat_id" = "utilisateur"."id"
-    WHERE "encherir"."article_id" = $1`
+      FROM "encherir"
+      JOIN "utilisateur" ON "utilisateur"."id" = "encherir"."utilisateur_id"
+      JOIN "article" ON "article"."utilisateur_achat_id" = "utilisateur"."id"
+      WHERE "encherir"."article_id" = $1`;
     const histValues = [id];
     const histResult = await client.query(historicPreparedQuery, histValues);
-    const histProduct = histResult.rows;
-    const productPage = {product, histProduct}
+    const histArticle = histResult.rows;
+
+    const articlePage = {article, allCategories, histArticle}
     
-    if(productPage){
-      return productPage;
+    if(articlePage){
+      return articlePage;
     }
     else {
       return null;
@@ -48,10 +56,10 @@ const dataMapper = {
     return result.rows;
   },
 
-  // affiche tous les produits d'une catégorie donnée via son id
-  async getProductsByCategoryId(id) {
+  // affiche tous les articles d'une catégorie donnée via son id
+  async getArticlesByCategoryId(id) {
     const preparedQuery = `
-      SELECT article.nom AS article, categorie_article.categorie_id, categorie.nom AS categorie
+      SELECT article.*, article.nom AS article, categorie_article.categorie_id, categorie.nom AS categorie
       FROM article
       JOIN categorie_article ON categorie_article.article_id = article.id
       JOIN categorie ON categorie.id = categorie_article.categorie_id
@@ -72,46 +80,46 @@ const dataMapper = {
   },
 
   // ajouter une article à la BDD
-  async AddOneProduct(nom, photo, description, prix_de_depart, date_de_fin, date_et_heure, utilisateur_vente_id) {
+  async AddOneArticle(nom, photo, description, prix_de_depart, date_de_fin, date_et_heure, utilisateur_vente_id) {
     const preparedQuery = {
       text: 'INSERT INTO "article" ("nom", "photo", "description", "prix_de_depart", "date_de_fin", "date_et_heure", "utilisateur_vente_id") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *',
       values: [nom, photo, description, prix_de_depart, date_de_fin, date_et_heure, utilisateur_vente_id],
     };
-    const newProduct = await client.query(preparedQuery);
-    return newProduct.rows[0];
+    const newArticle = await client.query(preparedQuery);
+    return newArticle.rows[0];
   },
 
   // supprime un article de la BDD via son ID
-  async DeleteOneProduct(id) {
+  async DeleteOneArticle(id) {
     const preparedQuery = {
       text: 'DELETE FROM "article" WHERE "id" = $1',
       values: [id],
     };
-    const deleteProduct = await client.query(preparedQuery);
-    if(deleteProduct.rowCount === 1) {
+    const deleteArticle = await client.query(preparedQuery);
+    if(deleteArticle.rowCount === 1) {
       return console.log("Delete succesful");
     } throw new Error("Delete failed");
   },
 
 
   // modifie un article de la BDD via son ID
-  async UpdateOneProduct(id, nom, photo, description, utilisateur_vente_id) {
+  async UpdateOneArticle(id, nom, photo, description, utilisateur_vente_id) {
     const preparedQuery = {
       text: 'UPDATE "article" SET "nom" = $2 , "photo" = $3, "description" = $4, "utilisateur_vente_id" = $5 WHERE "id" = $1 RETURNING *',
       values: [id, nom, photo, description, utilisateur_vente_id],
     };
-    const updatedProduct = await client.query(preparedQuery);
-    return updatedProduct.rows[0];
+    const updatedArticle = await client.query(preparedQuery);
+    return updatedArticle.rows[0];
   },
 
   // mettre à jour la catégorie d'un article dans la BDD
-  async UpdateProductCategory(idCategory, productId) {
+  async UpdateArticleCategory(idCategory, articleId) {
     const preparedQuery = {
       text: 'INSERT INTO "categorie_article" ("categorie_id", "article_id") VALUES ($1, $2) RETURNING *',
-      values: [idCategory, productId],
+      values: [idCategory, articleId],
     };
-    const newProductCategory = await client.query(preparedQuery);
-    return newProductCategory.rows[0];
+    const newArticleCategory = await client.query(preparedQuery);
+    return newArticleCategory.rows[0];
   },
 
 

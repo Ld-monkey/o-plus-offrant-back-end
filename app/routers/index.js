@@ -10,12 +10,12 @@ const auth = require('../models/middlewares/auth.js');
 
 
 // routes des articles-----------------------------------------------------------------------------------------
-router.get('/api/products', controller.AllProductsPage);                      // affiche tous les articles
-router.get('/api/products/:id', controller.OneProductPage);                   // affiche un article grâce à son id
-router.post('/product/creation/add', controller.AddProduct);                  // ajoute un article depuis un JSON //! TODO penser rajouter le middleware d'autorisation après tests
-router.patch('/product/:id/update', controller.UpdateProduct);                // modifie un article grâce à son id et depuis un JSON //! TODO penser rajouter le middleware d'autorisation après tests
-router.delete('/product/:id/delete', controller.DeleteProduct);               // supprime un article grâce grâce son id //! TODO penser rajouter le middleware d'autorisation après tests
-router.get('/api/category/:id/products', controller.ProductsOfOneCategory);   // affiche tous les produits d'une catégorie 
+router.get('/api/articles', controller.AllArticlesPage);                      // affiche tous les articles
+router.get('/api/article/:id', controller.OneArticlePage);                   // affiche un article grâce à son id
+router.post('/article/creation/add', controller.AddArticle);                  // ajoute un article depuis un JSON //! TODO penser rajouter le middleware d'autorisation après tests
+router.patch('/article/:id/update', controller.UpdateArticle);                // modifie un article grâce à son id et depuis un JSON //! TODO penser rajouter le middleware d'autorisation après tests
+router.delete('/article/:id/delete', controller.DeleteArticle);               // supprime un article grâce grâce son id //! TODO penser rajouter le middleware d'autorisation après tests
+router.get('/api/category/:id/articles', controller.ArticlesOfOneCategory);   // affiche tous les produits d'une catégorie 
 
 
 // routes des categories-----------------------------------------------------------------------------------------
