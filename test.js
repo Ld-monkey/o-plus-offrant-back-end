@@ -46,3 +46,47 @@ logger.warn({ errorCode: 'ABC123' }, 'Avertissement: une erreur s\'est produite'
 // Utilisation d'un contexte spécifique
 const requestContextLogger = logger.child({ requestId: '12345' });
 requestContextLogger.info('Message de journalisation avec un contexte spécifique');
+
+
+
+//------------------------------------------------
+/**
+ * return validation middlewares according to
+ * a dataSource and a schema
+ *
+ * @param {Object} schema - a joi validation schema
+ * @param {'query'|'body'} dataSource - the source of data to validate
+ * @returns {function} - a middleware function
+ */
+function validate(schema, dataSource) {
+  return (request, response, next) => {
+    const { error } = schema.validate(request[dataSource]);
+    if (error) {
+      return response.status(400).json({ status: 'error', errors: error.details.map((err) => err.message) });
+    }
+    return next();
+  };
+}
+
+module.exports = validate;
+
+
+
+
+const Joi = require('joi');
+
+const cadexQuery = Joi.object({
+  name: Joi.string(),
+  adjective: Joi.string(),
+  verb: Joi.string(),
+  complement: Joi.string(),
+});
+
+const cadexBody = Joi.object({
+  name: Joi.string(),
+  adjective: Joi.string(),
+  verb: Joi.string(),
+  complement: Joi.string(),
+}).required().min(1);
+
+module.exports = { cadexQuery, cadexBody };

@@ -4,7 +4,10 @@ const dataMapper = {
   // affiche tous les articles de la BDD + les catégories + les 5 dernières enchères qui arrivent à expiration
   async AllArticles() {
     // récupère tous les articles
-    const articles = await client.query(`SELECT * FROM "article"`);
+    const articles = await client.query(`SELECT article.*, categorie.nom AS categorie_nom, categorie.id AS categorie_id
+      FROM article
+      JOIN categorie_article ON categorie_article.article_id = article.id
+      JOIN categorie ON categorie.id = categorie_article.categorie_id`);
     const allArticles = articles.rows;
     // récupère toutes les catégories
     const result = await client.query(`SELECT * FROM "categorie"`);
