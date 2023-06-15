@@ -2,10 +2,10 @@ const dataMapper = require("../models/datamapper");
 
 const mainController = {
   // demande tous les articles
-  async AllProductsPage(req, res) {
+  async AllArticlesPage(req, res) {
     try {
-      const products = await dataMapper.AllProducts();
-      res.send(products);
+      const articles = await dataMapper.AllArticles();
+      res.send(articles);
     }
     catch(error){
       console.trace(error);
@@ -14,11 +14,11 @@ const mainController = {
   },
 
   // demande un article
-  async OneProductPage(req, res) {
+  async OneArticlePage(req, res) {
     const id = Number(req.params.id);
     try {
-      const product = await dataMapper.getOneProduct(id);
-        res.send(product);
+      const article = await dataMapper.getOneArticle(id);
+        res.send(article);
       }
     catch(error){
       console.trace(error);
@@ -39,14 +39,14 @@ const mainController = {
   },
 
   // demande tous les articles d'une catégorie
-  async ProductsOfOneCategory(req, res) {
+  async ArticlesOfOneCategory(req, res) {
     const id = Number(req.params.id);
     try {
       //renvoi tous les articles d'une catégorie
-      const products = await dataMapper.getProductsByCategoryId(id);
+      const articles = await dataMapper.getArticlesByCategoryId(id);
       //renvoi toutes les catégrories
       const categories = await dataMapper.AllCategories();
-      res.json({ status : 'success', filteredProducts : products, allCategories : categories});
+      res.json({ status : 'success', filteredArticles : articles, allCategories : categories});
     }
     catch(error){
       console.trace(error);
@@ -67,15 +67,15 @@ const mainController = {
   },
 
   // demande l'ajout d'un article
-  async AddProduct(req, res) {
+  async AddArticle(req, res) {
     try {
         // ajout de l'article depuis un JSON
         const { nom, photo, description, prix_de_depart, date_de_fin, date_et_heure, utilisateur_vente_id } = req.body;
-        const product = await dataMapper.AddOneProduct(nom, photo, description, prix_de_depart, date_de_fin, date_et_heure, utilisateur_vente_id);
+        const article = await dataMapper.AddOneArticle(nom, photo, description, prix_de_depart, date_de_fin, date_et_heure, utilisateur_vente_id);
         // mise à jour de la categorie de l'article via son ID nouvellement crée
         const idCategory = 2 //!! TODO rendre le choix dynamique (front ?)
-        const updateCategory = await dataMapper.UpdateProductCategory(idCategory, product.id);
-        res.json({ status : 'creation and update successful', data : product, categoryLink : updateCategory })
+        const updateCategory = await dataMapper.UpdateArticleCategory(idCategory, article.id);
+        res.json({ status : 'creation and update successful', data : article, categoryLink : updateCategory })
       }
     catch(error){
       console.trace(error);
@@ -84,10 +84,10 @@ const mainController = {
   },
 
   // demande la suppression d'un article
-  async DeleteProduct(req, res) {
+  async DeleteArticle(req, res) {
     const id = Number(req.params.id);
     try {
-        const deleteProduct = await dataMapper.DeleteOneProduct(id);
+        const deleteArticle = await dataMapper.DeleteOneArticle(id);
         res.status(200).json(`L'article avec l'ID n°${id} a bien été supprimé`);
       }
     catch(error){
@@ -97,12 +97,12 @@ const mainController = {
   },
 
   // modifie un article
-  async UpdateProduct(req, res) {
+  async UpdateArticle(req, res) {
     const id = Number(req.params.id);
     try {
       const { nom, photo, description, utilisateur_vente_id } = req.body;
-      const product = await dataMapper.UpdateOneProduct(id, nom, photo, description, utilisateur_vente_id);
-      res.json({ status : 'success', data : product }); //!! TODO modifier la condition d'erreur quand l'ID n'existe pas
+      const article = await dataMapper.UpdateOneArticle(id, nom, photo, description, utilisateur_vente_id);
+      res.json({ status : 'success', data : article }); //!! TODO modifier la condition d'erreur quand l'ID n'existe pas
     }
   catch(error){
     console.trace(error);
