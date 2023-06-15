@@ -23,6 +23,7 @@ const addArticle = Joi.object({
   date_de_fin: Joi.date().greater(Joi.ref('date_et_heure')).required(),
   date_et_heure: Joi.date().required(),
   utilisateur_vente_id: Joi.number().integer().required(),
+  categorie_id: Joi.number().integer().required(),
 });
 
 

@@ -70,10 +70,10 @@ const mainController = {
   async AddArticle(req, res) {
     try {
         // ajout de l'article depuis un JSON
-        const { nom, photo, description, prix_de_depart, date_de_fin, date_et_heure, utilisateur_vente_id } = req.body;
+        const { nom, photo, description, prix_de_depart, date_de_fin, date_et_heure, utilisateur_vente_id, categorie_id } = req.body;
         const article = await dataMapper.AddOneArticle(nom, photo, description, prix_de_depart, date_de_fin, date_et_heure, utilisateur_vente_id);
         // mise à jour de la categorie de l'article via son ID nouvellement crée
-        const idCategory = 2 //!! TODO rendre le choix dynamique (front ?)
+        const idCategory = categorie_id;
         const updateCategory = await dataMapper.UpdateArticleCategory(idCategory, article.id);
         res.json({ status : 'creation and update successful', data : article, categoryLink : updateCategory })
       }
