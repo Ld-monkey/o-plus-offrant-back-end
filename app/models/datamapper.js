@@ -34,7 +34,7 @@ const dataMapper = {
     const categoriesResult = await client.query(`SELECT * FROM "categorie"`);
     const allCategories = categoriesResult.rows;
 
-    const historicPreparedQuery = `SELECT DISTINCT "encherir"."montant", "utilisateur_id", "article_id", "date", "utilisateur"."prenom", "utilisateur"."nom" 
+    const historicPreparedQuery = `SELECT DISTINCT "encherir"."id", "encherir"."montant", "utilisateur_id", "article_id", "date", "utilisateur"."prenom", "utilisateur"."nom" 
       FROM "encherir"
       JOIN "utilisateur" ON "utilisateur"."id" = "encherir"."utilisateur_id"
       JOIN "article" ON "article"."utilisateur_achat_id" = "utilisateur"."id"
