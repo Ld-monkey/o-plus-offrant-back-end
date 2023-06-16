@@ -1,3 +1,4 @@
+const { log } = require('console');
 const client = require('./client');
 
 const dataMapper = {
@@ -135,7 +136,17 @@ const dataMapper = {
     const newAuctioning = await client.query(historicQuery);
 
     const updatedArticleQuery = {
-        text: 'UPDATE "article" SET "montant" = $1, "utilisateur_achat_id" = $3 WHERE "id" = $2 RETURNING *',
+        text:
+        `UPDATE "article" 
+         SET 
+         "montant" = $1, 
+         "utilisateur_achat_id" = $3,
+         "date_et_heure" = NOW(),
+         "date_de_fin" = CASE 
+          WHEN "date_de_fin" < (NOW() + INTERVAL '2 hours') 
+            THEN "date_et_heure" + INTERVAL '2 hours' 
+              ELSE "date_de_fin" END 
+                WHERE "id" = $2 RETURNING *`,
         values: [prix, articleId, acheteurId],
     };
       const updatedArticle = await client.query(updatedArticleQuery);
