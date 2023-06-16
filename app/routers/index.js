@@ -7,7 +7,7 @@ const jwtController = require('../controllers/jwtcontroller.js');
 
 // Middleware d'authorisation----------------------------------------------------------------------------------
 const auth = require('../models/middlewares/auth.js');
-const { registerUser, loginUser, addArticle  } = require('../validations/schemas.js')
+const { registerUser, loginUser, addArticle, auction  } = require('../validations/schemas.js')
 const validate = require('../validations/validate.js');
 
 
@@ -32,5 +32,8 @@ router.post('/api/register', validate(registerUser, 'body'),jwtController.AddUse
 router.post('/api/login', validate(loginUser, 'body'), jwtController.Login);                 // identifie un utilisateur via email et mot de passe crypté depuis la BDD
 router.post('/api/refresh-token', jwtController.RefreshToken);                               // rafraichi le refreshToken du porteur et passe en nouveau accessToken et refreshToken //! TODO fonction à vérifier
 
+
+// Route du bouton enchérir---------------------------------------------------------------------------------------
+router.post('/api/auction', validate(auction, 'body'), controller.Auctioning);                                           // Ajoute le montant en cliquant sur le bouton enchérir
 
 module.exports = router;

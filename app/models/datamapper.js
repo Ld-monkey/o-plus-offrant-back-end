@@ -126,6 +126,27 @@ const dataMapper = {
   },
 
 
+  // Enchérir et mise à jour dans la base de données
+  async Auctioning( prix, articleId, acheteurId ) {
+    const historicQuery = {
+      text: 'INSERT INTO "encherir" ("montant", "date", "article_id", "utilisateur_id") VALUES ($1, NOW(), $2, $3) RETURNING *',
+      values: [prix, articleId, acheteurId],
+    };
+    const newAuctioning = await client.query(historicQuery);
+
+    const updatedArticleQuery = {
+        text: 'UPDATE "article" SET "montant" = $1, "utilisateur_achat_id" = $3 WHERE "id" = $2 RETURNING *',
+        values: [prix, articleId, acheteurId],
+    };
+      const updatedArticle = await client.query(updatedArticleQuery);
+      const auctionTracer = {newAuctioning, updatedArticle}
+        if(auctionTracer) {
+          return auctionTracer;
+        }
+        else {
+          return null;
+        }
+  },
 };
 
 module.exports = dataMapper;
