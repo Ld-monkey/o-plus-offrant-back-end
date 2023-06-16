@@ -17,9 +17,9 @@ CREATE TABLE IF NOT EXISTS "article" (
     "nom" TEXT NOT NULL,
     "photo" TEXT NOT NULL,
     "description" TEXT,
-    "prix_de_depart" DECIMAL NOT NULL,
+    "prix_de_depart" FLOAT NOT NULL,
     "date_de_fin" TIMESTAMPTZ NOT NULL,
-    "montant" DECIMAL,
+    "montant" FLOAT,
     "date_et_heure" TIMESTAMPTZ NOT NULL DEFAULT NOW()
 
 );
@@ -43,7 +43,7 @@ CREATE TABLE IF NOT EXISTS "categorie" (
 
 CREATE TABLE IF NOT EXISTS "encherir" (
     "id" INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    "montant" DECIMAL,
+    "montant" FLOAT,
     "date" TIMESTAMPTZ DEFAULT NOW()
 );
 
