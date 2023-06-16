@@ -27,6 +27,12 @@ const addArticle = Joi.object({
 });
 
 
+const auction = Joi.object({
+prix: Joi.number().integer().positive().required(),
+articleId: Joi.number().integer().required(),
+acheteurId: Joi.number().integer().required(),
+})
 
 
-module.exports = { registerUser, loginUser, addArticle  };
+
+module.exports = { registerUser, loginUser, addArticle, auction  };

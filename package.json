@@ -1,12 +1,15 @@
 {
   "name": "y",
   "version": "1.0.0",
-  "description": "en cours de rédaction...",
+  "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "sqitch revert -y; sqitch deploy; psql -d o_plus_offrant -f data/seeding/seeding.sql",
-    "dev": "nodemon index.js"
+    "dev": "nodemon index.js",
+    "start": "node index.js",
+    "db:create": "psql -U opluso -d o_plus_offrant -f ./data/deploy/init.sql",
+    "db:populate": "psql -U opluso -d o_plus_offrant -f ./data/seeding/seeding.sql",
+    "reset": "sqitch revert -y; sqitch deploy; psql -d o_plus_offrant -f data/seeding/seeding.sql",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
@@ -21,9 +24,7 @@
   "dependencies": {
     "bcrypt": "^5.1.0",
     "dotenv": "^16.1.4",
-    "email-validator": "^2.0.4",
     "express": "^4.18.2",
-    "express-session": "^1.17.3",
     "joi": "^17.9.2",
     "jsonwebtoken": "^9.0.0",
     "pg": "^8.11.0"
