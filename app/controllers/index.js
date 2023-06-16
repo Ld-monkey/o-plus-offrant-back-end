@@ -115,7 +115,7 @@ const mainController = {
     try {
       const { prix, articleId, acheteurId } = req.body;
       const auction = await dataMapper.Auctioning(prix, articleId, acheteurId);
-      res.json({status :'Done', data : auction.newAuctioning.rows});
+      res.json({status :'Done', histAuctions : auction.newAuctioning.rows, updatedTableArticle : auction.updatedArticle.rows});
     }
     catch(error){
       console.trace(error);
