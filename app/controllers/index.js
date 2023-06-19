@@ -1,12 +1,7 @@
 const dataMapper = require("../models/datamapper");
 
 const mainController = {
-
- /**
- * @summary demande tous les articles
- * @tags article
- * @return {array<allArticles>,array<allCategories>,array<lastAuction> } 200 - success response - application/json
- */
+  //demande tous les articles
   async AllArticlesPage(__, res) {
     try {
       const articles = await dataMapper.AllArticles();

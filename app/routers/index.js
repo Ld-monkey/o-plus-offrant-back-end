@@ -7,7 +7,7 @@ const jwtController = require('../controllers/jwtcontroller.js');
 
 // Middleware d'authorisation----------------------------------------------------------------------------------
 const auth = require('../models/middlewares/auth.js');
-const { registerUser, loginUser, addArticle, auction  } = require('../validations/schemas.js')
+const { registerUser, loginUser, addArticle, updateArticle, auction  } = require('../validations/schemas.js')
 const validate = require('../validations/validate.js');
 
 
@@ -15,29 +15,11 @@ const validate = require('../validations/validate.js');
 
 // routes des articles-----------------------------------------------------------------------------------------
 
-/**
- * GET /api/articles
- * @summary affiche tous les articles
- * @tags article
- * @return {object} 200 - success response - application/json
- */
-router.get('/api/articles', controller.AllArticlesPage);                                     // affiche tous les articles
+router.get('/api/articles', controller.AllArticlesPage);
+router.get('/api/article/:id', controller.OneArticlePage);
+router.post('/article/creation/add', validate(addArticle, 'body'), controller.AddArticle);   //! TODO penser rajouter le middleware d'autorisation après tests
+router.patch('/article/:id/update', validate(updateArticle, 'body'), controller.UpdateArticle);                               //! TODO penser rajouter le middleware d'autorisation après tests
 
-
-/**
- * GET /api/article/id.path
- * @summary affiche un article
- * @tags article
- * @param {number} id.path - article id
- * @return {object} 200 - success response - application/json
- */
-router.get('/api/article/:id', controller.OneArticlePage);                                   // affiche un article grâce à son id
-
-
-
-
-router.post('/article/creation/add', validate(addArticle, 'body'), controller.AddArticle);   // ajoute un article depuis un JSON //! TODO penser rajouter le middleware d'autorisation après tests
-router.patch('/article/:id/update', controller.UpdateArticle);                               // modifie un article grâce à son id et depuis un JSON //! TODO penser rajouter le middleware d'autorisation après tests
 router.delete('/article/:id/delete', controller.DeleteArticle);                              // supprime un article grâce grâce son id //! TODO penser rajouter le middleware d'autorisation après tests
 router.get('/api/category/:id/articles', controller.ArticlesOfOneCategory);                  // affiche tous les produits d'une catégorie 
 
@@ -45,7 +27,6 @@ router.get('/api/category/:id/articles', controller.ArticlesOfOneCategory);     
 // routes des categories-----------------------------------------------------------------------------------------
 router.get('/api/categories', controller.AllCategoriesPage);                                 // affiche toutes les catégories
 router.post('/category/creation/add', controller.AddCategory);                               // ajoute une catégorie depuis un JSON //! TODO penser rajouter le middleware d'autorisation après tests
-
 
 
 // Login et autorisations-----------------------------------------------------------------------------------------

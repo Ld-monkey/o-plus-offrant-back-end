@@ -2,12 +2,7 @@ const { log } = require('console');
 const client = require('./client');
 
 const dataMapper = {
-/**
- * @summary affiche tous les articles de la BDD + les catégories + les 5 dernières enchères qui arrivent à expiration
- * 
- * @return {object} 200 - success response - application/json
- */
-
+  //affiche tous les articles de la BDD + les catégories + les 5 dernières enchères qui arrivent à expiration
   async AllArticles() {
     // récupère tous les articles
     const articles = await client.query(`SELECT article.*, categorie.nom AS categorie_nom, categorie.id AS categorie_id
