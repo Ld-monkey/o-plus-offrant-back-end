@@ -2,10 +2,31 @@ require('dotenv').config();
 
 const express = require('express');
 const router = require('./app/routers');
+const expressJSDocSwagger = require('express-jsdoc-swagger');
 
 const port = process.env.PORT || 3000;
 
+const swaggerOptions = {
+  info: {
+    version: '1.0',
+    title: 'O+Offrant',
+  },
+  baseDir: `${__dirname}/app`,
+  filesPattern: './**/*.js',
+  swaggerUIPath: '/api-docs',
+  exposeSwaggerUI: true,
+};
+
 const app = express();
+
+
+/*
+const mySwagger = expressJSDocSwagger(app)
+mySwagger(swaggerOptions);
+*/
+expressJSDocSwagger(app)(swaggerOptions);
+
+
 
 // Middleware pour autoriser les demandes CORS
 app.use((req, res, next) => {

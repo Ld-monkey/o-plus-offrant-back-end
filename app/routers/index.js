@@ -11,9 +11,31 @@ const { registerUser, loginUser, addArticle, auction  } = require('../validation
 const validate = require('../validations/validate.js');
 
 
+
+
 // routes des articles-----------------------------------------------------------------------------------------
+
+/**
+ * GET /api/articles
+ * @summary affiche tous les articles
+ * @tags article
+ * @return {object} 200 - success response - application/json
+ */
 router.get('/api/articles', controller.AllArticlesPage);                                     // affiche tous les articles
+
+
+/**
+ * GET /api/article/id.path
+ * @summary affiche un article
+ * @tags article
+ * @param {number} id.path - article id
+ * @return {object} 200 - success response - application/json
+ */
 router.get('/api/article/:id', controller.OneArticlePage);                                   // affiche un article grâce à son id
+
+
+
+
 router.post('/article/creation/add', validate(addArticle, 'body'), controller.AddArticle);   // ajoute un article depuis un JSON //! TODO penser rajouter le middleware d'autorisation après tests
 router.patch('/article/:id/update', controller.UpdateArticle);                               // modifie un article grâce à son id et depuis un JSON //! TODO penser rajouter le middleware d'autorisation après tests
 router.delete('/article/:id/delete', controller.DeleteArticle);                              // supprime un article grâce grâce son id //! TODO penser rajouter le middleware d'autorisation après tests
@@ -32,8 +54,10 @@ router.post('/api/register', validate(registerUser, 'body'),jwtController.AddUse
 router.post('/api/login', validate(loginUser, 'body'), jwtController.Login);                 // identifie un utilisateur via email et mot de passe crypté depuis la BDD
 router.post('/api/refresh-token', jwtController.RefreshToken);                               // rafraichi le refreshToken du porteur et passe en nouveau accessToken et refreshToken //! TODO fonction à vérifier
 
+//router.get('/api/logout', jwtController.Logout);                                             // déconnecte l'utilisateur coté client ? //! a voir avec le front
+
 
 // Route du bouton enchérir---------------------------------------------------------------------------------------
-router.post('/api/auction', validate(auction, 'body'), controller.Auctioning);                                           // Ajoute le montant en cliquant sur le bouton enchérir
+router.post('/api/auction', validate(auction, 'body'), controller.Auctioning);               // Ajoute le montant en cliquant sur le bouton enchérir
 
 module.exports = router;
