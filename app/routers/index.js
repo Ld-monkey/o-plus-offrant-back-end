@@ -19,6 +19,7 @@ router.get('/api/articles', controller.AllArticlesPage);
 router.get('/api/article/:id', controller.OneArticlePage);
 router.post('/article/creation/add', validate(addArticle, 'body'), controller.AddArticle);   //! TODO penser rajouter le middleware d'autorisation après tests
 router.patch('/article/:id/update', validate(updateArticle, 'body'), controller.UpdateArticle);                               //! TODO penser rajouter le middleware d'autorisation après tests
+/* router.post('/api/article/images', controller.AddImage); */
 
 router.delete('/article/:id/delete', controller.DeleteArticle);                              // supprime un article grâce grâce son id //! TODO penser rajouter le middleware d'autorisation après tests
 router.get('/api/category/:id/articles', controller.ArticlesOfOneCategory);                  // affiche tous les produits d'une catégorie 
