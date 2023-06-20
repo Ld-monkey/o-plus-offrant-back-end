@@ -3,6 +3,6 @@
 	top_dir = data
 	# plan_file = migrations/sqitch.plan
 [engine "pg"]
-	target = db:pg:o_plus_offrant
+	target = db:pg://PGUSER:PGPASSWORD@localhost:5432/PGDATABASE
 	# registry = sqitch
 	# client = psql
