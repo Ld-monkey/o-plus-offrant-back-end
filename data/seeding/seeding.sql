@@ -15,18 +15,18 @@ INSERT INTO utilisateur(prenom, nom, adresse_mail, mot_de_passe) VALUES
 
 
 INSERT INTO article(nom, photo, description, prix_de_depart, date_de_fin, montant, date_et_heure, utilisateur_vente_id, utilisateur_achat_id) VALUES
-('Chaise', '/images/chaise.jpg', 'La plus belle chaise du monde.', 35.50, NOW()-'1 day'::interval+'7 days'::interval, 40.00, NOW()-'1 day'::interval, 1, 2),
-('Rateau', '/images/rateau.jpg', 'description du rateau', 10.00, NOW()-'3 days'::interval+'7 days'::interval, 15.00, NOW()-'3 days'::interval, 1, 3),
-('Raquette de tennis', '/images/raquette de tennis.jpg', 'description spéciale Roland Garros', 40.00, NOW()-'2 days'::interval+'7 days'::interval, 44.00, NOW()-'2 days'::interval, 1, 2),
-('Monopoly edition spéciale', '/images/Monopoly.jpg', 'c''est une édition spéciale', 250.00, NOW()+'7 days'::interval, 300.00, NOW(), 2, 1),
-('Robe', '/images/robe.jpg', 'robe de bal de promo, jamais servie', 800.00, NOW()-'1 day 8 hours'::interval+'7 days'::interval, 900.00, NOW()-'1 day 8 hours'::interval, 3, 1),
-('Table', '/images/chaise.jpg', 'La plus belle table du monde.', 10, NOW()-'1 day'::interval+'7 days'::interval, 40.00, NOW()-'1 day'::interval, 1, 2),
+('Chaise', '/images/chaise.jpg', 'La plus belle chaise du monde', 35.50, NOW()-'1 day'::interval+'7 days'::interval, 40.00, NOW()-'1 day'::interval, 1, 2),
+('Rateau', '/images/rateau.jpg', 'Description du rateau', 10.00, NOW()-'3 days'::interval+'7 days'::interval, 15.00, NOW()-'3 days'::interval, 1, 3),
+('Raquette de tennis', '/images/raquette de tennis.jpg', 'Spéciale Roland Garros', 40.00, NOW()-'2 days'::interval+'7 days'::interval, 44.00, NOW()-'2 days'::interval, 1, 2),
+('Monopoly edition spéciale', '/images/monopoly.jpg', 'C''est une édition spéciale', 250.00, NOW()+'7 days'::interval, 300.00, NOW(), 2, 1),
+('Robe', '/images/robe.jpg', 'Robe de bal de promo, jamais servie', 800.00, NOW()-'1 day 8 hours'::interval+'7 days'::interval, 900.00, NOW()-'1 day 8 hours'::interval, 3, 1),
+('Table', '/images/table.jpeg', 'La plus belle table du monde', 10, NOW()-'1 day'::interval+'7 days'::interval, 40.00, NOW()-'1 day'::interval, 1, 2),
 ('Canapé', '/images/canapé.jpeg', 'Vla le canapé', 3500, NOW()-'1 day'::interval+'7 days'::interval, 4000.00, NOW()-'1 day'::interval, 2, 3),
-('Arrosoire', '/images/arrosoire.jpeg', 'description de l''arrosoire', 100.00, NOW()-'5 days'::interval+'7 days'::interval, 150.00, NOW()-'3 days'::interval, 2, 1),
+('Arrosoir', '/images/arrosoir.jpeg', 'Description de l''arrosoir', 100.00, NOW()-'5 days'::interval+'7 days'::interval, 150.00, NOW()-'3 days'::interval, 2, 1),
 ('Ballon', '/images/ballon.jpeg', 'Ballon officiel France 98', 75.00, NOW()-'5 days'::interval+'7 days'::interval, 80.00, NOW()-'2 days'::interval, 1, 2),
-('Les petits cheveaux', '/images/petitscheveaux.jpeg', 'c''est une édition spéciale PETA', 200.00, NOW()+'7 days'::interval, 300.00, NOW(), 1, 2),
-('Jean', '/images/jean.jpeg', 'taille 38', 1200.00, NOW()-'1 day 8 hours'::interval+'7 days'::interval, 1300.00, NOW()-'1 day 8 hours'::interval, 3, 1),
-('Parasol', '/images/parasol.jpeg', 'Ombre et style authentique', 100, NOW()-'1 day'::interval+'7 days'::interval, 400.00, NOW()-'1 day'::interval, 2, 3);
+('Les petits cheveaux', '/images/petitscheveaux.jpeg', 'Edition spéciale PETA', 200.00, NOW()+'7 days'::interval, 300.00, NOW(), 1, 2),
+('Jean', '/images/jean.jpeg', 'Taille 38', 1200.00, NOW()-'1 day 8 hours'::interval+'7 days'::interval, 1300.00, NOW()-'1 day 8 hours'::interval, 3, 1),
+('Parasol', '/images/parasol.jpeg', 'Ombrage et style authentique', 100, NOW()-'1 day'::interval+'7 days'::interval, 400.00, NOW()-'1 day'::interval, 2, 3);
 
 
 
