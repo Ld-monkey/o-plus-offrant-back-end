@@ -9,7 +9,7 @@ const expressJSDocSwagger = require('express-jsdoc-swagger');
 const fs = require('fs');
 const multer = require('multer');
 
-const upload = multer({ dest: '/public/images/' });
+const upload = multer({ dest: './public/images/' });
 
 //---------------------------------------------------------------------------
 
