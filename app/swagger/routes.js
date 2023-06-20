@@ -1,13 +1,9 @@
-// Routes Swagger ---------------------------------------------
-
-
 /**
  * GET /api/articles
  * @summary affiche tous les articles
  * @tags Article
  * @return {object} 200 - success response - application/json
  */
-
 
 
 /**
@@ -38,7 +34,6 @@
  */
 
 
-
 /**
  * DELETE /article/{id}/delete
  * @summary supprime un article grâce grâce son id
@@ -57,15 +52,12 @@
  */
 
 
-
 /**
  * GET /api/categories
  * @summary affiche toutes les catégories
  * @tags Catégorie
  * @return {object} 200 - success response - application/json
  */
-
-
 
 
 /**
@@ -77,11 +69,6 @@
  */
 
 
-
-// Login et autorisations-----------------------------------------------------------------------------------------
-
-
-
 /**
  * POST /api/register
  * @summary ajoute un utilisateur avec mot de passe crypté à la BDD
@@ -90,6 +77,7 @@
  * @return {object} 200 - success response - application/json
  */
 
+
 /**
  * POST /api/login
  * @summary ajoute un utilisateur avec mot de passe crypté à la BDD
@@ -97,13 +85,19 @@
  * @param {logUser} request.body.required - objet pour l'utilisateur à créer
  * @return {object} 200 - success response - application/json
  */
-router.post('/api/login', validate(loginUser, 'body'), jwtController.Login);                 // identifie un utilisateur via email et mot de passe crypté depuis la BDD
-router.post('/api/refresh-token', jwtController.RefreshToken);                               // rafraichi le refreshToken du porteur et passe en nouveau accessToken et refreshToken //! TODO fonction à vérifier
 
-//router.get('/api/logout', jwtController.Logout);                                             // déconnecte l'utilisateur coté client ? //! a voir avec le front
-
-
-// Route du bouton enchérir---------------------------------------------------------------------------------------
-router.post('/api/auction', validate(auction, 'body'), controller.Auctioning);               // Ajoute le montant en cliquant sur le bouton enchérir
-
-
+/**
+ * POST /api/refresh-token
+ * @summary rafraichi le refreshToken du porteur et passe en nouveau accessToken et refreshToken
+ * @tags Utilisateur
+ * @param {refreshToken} request.body.required - objet pour l'utilisateur à créer //!! A REVOIR pour le refresh token dans le api-doc
+ * @return {object} 200 - success response - application/json
+ */
+                         
+/**
+ * POST /api/auction
+ * @summary Ajoute le montant en cliquant sur le bouton enchérir
+ * @tags Enchère
+ * @param {addAuction} request.body.required - objet pour enchérir
+ * @return {object} 200 - success response - application/json
+ */

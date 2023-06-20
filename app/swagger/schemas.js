@@ -1,5 +1,3 @@
-// Schémas Swagger ---------------------------------------------
-
 /**
  * @typedef {object} article
  * @property {integer} id - id de l'article
@@ -79,6 +77,7 @@
  * 
  */
 
+
 /**
  * @typedef {object} logUser
  * @property {string} adresse_mail - email de l'utilisateur
@@ -87,5 +86,17 @@
  */
 
 
+/**
+ * @typedef {object} refreshToken
+ * @property {string} refreshToken - le refresh
+ * 
+ */
 
 
+/**
+ * @typedef {object} addAuction
+ * @property {number} prix - montant de l'enchère
+ * @property {integer} articleId - id de l'article sur lequel on enchérit
+ * @property {integer} acheteurId - id de l'acheteur qui enchérit
+ * 
+ */
