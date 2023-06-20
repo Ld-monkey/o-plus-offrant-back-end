@@ -1,7 +1,7 @@
 const bcrypt = require('bcrypt');
 const client = require('../models/client.js');
-const JwtTokens = require('../helpers/jwt.js');
 const jwt = require('jsonwebtoken');
+const JwtTokens = require('../helpers/jwt.js');
 
 const jwtController = {
   // voir tous les utilisateurs dans la BDD
@@ -43,6 +43,7 @@ const jwtController = {
       res.status(401).json({error:error.message});
     }
   },
+
 
   // Vérifie si le refreshtoken transporté est valide
   // (ne pas oublier de mettre un refreshtoken dans le Bearer lors des tests)

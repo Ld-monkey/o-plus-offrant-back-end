@@ -1,8 +1,8 @@
 const dataMapper = require("../models/datamapper");
 
 const mainController = {
-  // demande tous les articles
-  async AllArticlesPage(req, res) {
+  //demande tous les articles
+  async AllArticlesPage(__, res) {
     try {
       const articles = await dataMapper.AllArticles();
       res.send(articles);

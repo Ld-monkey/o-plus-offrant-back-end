@@ -90,3 +90,35 @@ const cadexBody = Joi.object({
 }).required().min(1);
 
 module.exports = { cadexQuery, cadexBody };
+
+
+//---------------------------------------------------
+
+const jwt = require('jsonwebtoken');
+
+class UserController {
+  logout(req, res) {
+    const token = req.headers.authorization;
+
+    if (token) {
+      try {
+        // Vérifier et décoder le JWT pour obtenir les informations de l'utilisateur
+        const decoded = jwt.verify(token, 'votre_secret');
+
+        // Effectuer les opérations de déconnexion spécifiques, par exemple :
+        // - Révoquer le token dans une liste noire (blacklist)
+        // - Supprimer le token des cookies ou du stockage côté client
+        // - Enregistrer la déconnexion dans les journaux ou l'historique
+
+        // Retourner une réponse appropriée
+        res.status(200).json({ message: 'Déconnexion réussie.' });
+      } catch (err) {
+        // Gérer les erreurs de décodage du token
+        res.status(401).json({ message: 'Token invalide.' });
+      }
+    } else {
+      // Gérer les requêtes sans token
+      res.status(401).json({ message: 'Token manquant.' });
+    }
+  }
+}

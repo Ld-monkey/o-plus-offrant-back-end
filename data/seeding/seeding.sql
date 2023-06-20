@@ -6,7 +6,13 @@ TRUNCATE article, utilisateur, categorie, encherir, categorie_article RESTART ID
 INSERT INTO utilisateur(prenom, nom, adresse_mail, mot_de_passe) VALUES 
 ('Tony', 'Toto', 'Tony@email.com', '$2b$10$XSgPV66JaFdhsLi0ThtCkOX/u01cnWajZiVAzdkiIKb4r7XScdIi6'),
 ('Antonio', 'Toti', 'Antonio@email.com', '$2b$10$cvupFjo66gXR.ttGoImp/ecCUgCC0wlUwv7VR4xsQ/.3OZEMuBHvi'),
-('Anthony', 'Tito', 'Anthony@email.com', '$2b$10$ilFkuNB9q62mlzlN6KUFtOAYX1hS54Xa9XJTF7fwkVLROQxfoiqEe');
+('Anthony', 'Tito', 'Anthony@email.com', '$2b$10$ilFkuNB9q62mlzlN6KUFtOAYX1hS54Xa9XJTF7fwkVLROQxfoiqEe'),
+('Stéphane', 'Bidard', 'Stephane@email.com', '$2b$10$BhlwaJpfE0kEpfis.TYPFub6JSDrOGqA.Lre1wlF.V5/AEUBfVZqO'),
+('Ludovic', 'Fourteau', 'Ludovic@email.com', '$2b$10$xzGbptvHRVi.23QczdjFVOsr84c.s/.4x/YpECRxJAvTY5f38iAry'),
+('Didier', 'Lambert', 'Didier@email.com', '$2b$10$ihRHw9lUcuejDcrwJV5zCOXOKpj44smoe8LRwjQsepGl0476N4vR6'),
+('Estelle', 'Li-Zheng', 'Estelle@email.com', '$2b$10$bhdpyQvryzTTlX7ZKFyQcezK1qI9yr9c3Em7fs3L4oDaOP1wn59ye'),
+('Christophe', 'Miranville', 'Christophe@email.com', '$2b$10$0H.hUDGDfxmXyY9g6K6iNeTedKfmZbNQDF5EOW82386ivaO1IMVRC');
+
 
 INSERT INTO article(nom, photo, description, prix_de_depart, date_de_fin, montant, date_et_heure, utilisateur_vente_id, utilisateur_achat_id) VALUES
 ('Chaise', '/images/chaise.jpg', 'La plus belle chaise du monde.', 35.50, NOW()-'1 day'::interval+'7 days'::interval, 40.00, NOW()-'1 day'::interval, 1, 2),
@@ -14,7 +20,16 @@ INSERT INTO article(nom, photo, description, prix_de_depart, date_de_fin, montan
 ('Raquette de tennis', '/images/raquette de tennis.jpg', 'description spéciale Roland Garros', 40.00, NOW()-'2 days'::interval+'7 days'::interval, 44.00, NOW()-'2 days'::interval, 1, 2),
 ('Monopoly edition spéciale', '/images/Monopoly.jpg', 'c''est une édition spéciale', 250.00, NOW()+'7 days'::interval, 300.00, NOW(), 2, 1),
 ('Robe', '/images/robe.jpg', 'robe de bal de promo, jamais servie', 800.00, NOW()-'1 day 8 hours'::interval+'7 days'::interval, 900.00, NOW()-'1 day 8 hours'::interval, 3, 1),
-('Table', '/images/chaise.jpg', 'La plus belle table du monde.', 10, NOW()-'1 day'::interval+'7 days'::interval, 40.00, NOW()-'1 day'::interval, 1, 2);
+('Table', '/images/chaise.jpg', 'La plus belle table du monde.', 10, NOW()-'1 day'::interval+'7 days'::interval, 40.00, NOW()-'1 day'::interval, 1, 2),
+('Canapé', '/images/canapé.jpeg', 'Vla le canapé', 3500, NOW()-'1 day'::interval+'7 days'::interval, 4000.00, NOW()-'1 day'::interval, 2, 3),
+('Arrosoire', '/images/arrosoire.jpeg', 'description de l''arrosoire', 100.00, NOW()-'5 days'::interval+'7 days'::interval, 150.00, NOW()-'3 days'::interval, 2, 1),
+('Ballon', '/images/ballon.jpeg', 'Ballon officiel France 98', 75.00, NOW()-'5 days'::interval+'7 days'::interval, 80.00, NOW()-'2 days'::interval, 1, 2),
+('Les petits cheveaux', '/images/petitscheveaux.jpeg', 'c''est une édition spéciale PETA', 200.00, NOW()+'7 days'::interval, 300.00, NOW(), 1, 2),
+('Jean', '/images/jean.jpeg', 'taille 38', 1200.00, NOW()-'1 day 8 hours'::interval+'7 days'::interval, 1300.00, NOW()-'1 day 8 hours'::interval, 3, 1),
+('Parasol', '/images/parasol.jpeg', 'Ombre et style authentique', 100, NOW()-'1 day'::interval+'7 days'::interval, 400.00, NOW()-'1 day'::interval, 2, 3);
+
+
+
 
 INSERT INTO categorie(nom) VALUES
 ('Meuble'),
@@ -29,17 +44,38 @@ INSERT INTO categorie_article(categorie_id, article_id) VALUES
 (3, 3),
 (4, 4),
 (5, 5),
-(1, 6);
+(1, 6),
+(1, 7),
+(2, 8),
+(3, 9),
+(4, 10),
+(5, 11),
+(2, 12);
 
 INSERT INTO encherir(montant, date, utilisateur_id, article_id) VALUES
 (40.00, NOW()-'1 hour'::interval, 2, 1),
 (39.00, NOW()-'3 hours'::interval, 3, 1),
 (38.00, NOW()-'3 hours'::interval, 2, 1),
 (37.00, NOW()-'4 hours'::interval, 3, 1),
-(15.00, NOW()-'4 hours'::interval, 3, 2),
-(44.00, NOW()-'4 hours'::interval, 2, 3),
-(300.00, NOW()-'4 hours'::interval, 1, 4),
-(900.00, NOW()-'4 hours'::interval, 1, 5);
+
+(15.00, NOW()-'1 hours'::interval, 3, 2),
+(12.00, NOW()-'2 hours'::interval, 2, 2),
+(11.00, NOW()-'4 hours'::interval, 3, 2),
+
+(400.00, NOW()-'2 hours'::interval, 1, 12),
+(350.00, NOW()-'3 hours'::interval, 2, 12),
+(300.00, NOW()-'3 hours'::interval, 1, 12),
+(250.00, NOW()-'3 hours'::interval, 2, 12),
+(150.00, NOW()-'4 hours'::interval, 3, 12),
+
+(900.00, NOW()-'1 hours'::interval, 3, 5),
+(875.00, NOW()-'2 hours'::interval, 1, 5),
+(850.00, NOW()-'3 hours'::interval, 3, 5),
+
+(1300.00, NOW()-'2 hours'::interval, 2, 11),
+(1275.00, NOW()-'3 hours'::interval, 3, 11),
+(1250.00, NOW()-'4 hours'::interval, 1, 11);
+
 
 
 COMMIT;
