@@ -158,6 +158,44 @@ const dataMapper = {
           return null;
         }
   },
+
+
+  async getOneProfile(id){
+    const profilePreparedQuery = `SELECT "id", "prenom", "nom", "adresse_mail", "created_at", "updated_at"  FROM "utilisateur" WHERE "id" = $1`;
+    const values = [id];
+    const profileResult = await client.query(profilePreparedQuery, values);
+    const profile = profileResult.rows[0];
+
+    const histSellPreparedQuery = `SELECT * FROM "article"
+    WHERE "utilisateur_vente_id" = $1`;
+    const histSellvalues = [id];
+    const histSellResult = await client.query(histSellPreparedQuery, histSellvalues);
+    const histSell = histSellResult.rows;
+
+    const histBuyPreparedQuery = `SELECT DISTINCT "encherir"."id", "encherir"."montant", "utilisateur_id", "article_id", "date", "utilisateur"."prenom", "utilisateur"."nom" 
+    FROM "encherir"
+    JOIN "utilisateur" ON "utilisateur"."id" = "encherir"."utilisateur_id"
+    JOIN "article" ON "article"."utilisateur_achat_id" = "utilisateur"."id"
+    WHERE "encherir"."utilisateur_id" = $1`;
+    const histBuyValues = [id];
+    const histBuyResult = await client.query(histBuyPreparedQuery, histBuyValues);
+    const histBuy = histBuyResult.rows;
+
+    const wonAuctionPreparedQuery = `SELECT * FROM article WHERE "date_de_fin" < NOW() AND utilisateur_achat_id = $1`;
+    const wonAuctionValues = [id];
+    const wonAuctionResult = await client.query(wonAuctionPreparedQuery, wonAuctionValues);
+    const wonAuction = wonAuctionResult.rows;
+
+    const profilePage = {profile, histSell, histBuy, wonAuction }
+    
+    if(profilePage){
+      return profilePage;
+    }
+    else {
+      return null;
+    }
+  },
+
 };
 
 module.exports = dataMapper;

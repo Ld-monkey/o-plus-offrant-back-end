@@ -2,8 +2,9 @@ const bcrypt = require('bcrypt');
 const client = require('../models/client.js');
 const jwt = require('jsonwebtoken');
 const JwtTokens = require('../helpers/jwt.js');
+const dataMapper = require("../models/datamapper");
 
-const jwtController = {
+const userController = {
   // voir tous les utilisateurs dans la BDD
   AllUsers: async (__, res) => {
     try {
@@ -60,8 +61,48 @@ const jwtController = {
     } catch (error) {
       res.status(500).json({error:error.message});
     }
+  },
+
+
+  async OneProfilePage(req, res) {
+    const id = Number(req.params.id);
+    try {
+      const profile = await dataMapper.getOneProfile(id);
+        res.send(profile);
+      }
+    catch(error){
+      console.trace(error);
+      res.status(500).send('Error 500');
+    }
+  },
+
+
+  async UpdateProfile(req, res) {
+    const id = Number(req.params.id);
+    try {
+      const { nom, photo, description, utilisateur_vente_id } = req.body;
+      const profile = await dataMapper.UpdateOneProfile(id, nom, photo, description, utilisateur_vente_id);
+      res.json({ status : 'success', data : profile }); //!! TODO modifier la condition d'erreur quand l'ID n'existe pas
+    }
+  catch(error){
+    console.trace(error);
+    res.status(500).send('Error 500');
   }
+},
+
+
+async DeleteProfile(req, res) {
+  const id = Number(req.params.id);
+  try {
+      const deleteProfile = await dataMapper.DeleteOneProfile(id);
+      res.status(200).json(`L'article avec l'ID n°${id} a bien été supprimé`);
+    }
+  catch(error){
+    console.trace(error);
+    res.status(500).send('Error 500');
+  }
+}
 
 };
 
-module.exports = jwtController;
+module.exports = userController;
