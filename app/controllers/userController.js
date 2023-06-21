@@ -80,9 +80,9 @@ const userController = {
   async UpdateProfile(req, res) {
     const id = Number(req.params.id);
     try {
-      const { nom, photo, description, utilisateur_vente_id } = req.body;
-      const profile = await dataMapper.UpdateOneProfile(id, nom, photo, description, utilisateur_vente_id);
-      res.json({ status : 'success', data : profile }); //!! TODO modifier la condition d'erreur quand l'ID n'existe pas
+      const { nom, prenom, adresse_mail } = req.body;
+      const profile = await dataMapper.UpdateOneProfile(id, nom, prenom, adresse_mail);
+      res.json({ status : 'profile update successful', data : profile }); //!! TODO modifier la condition d'erreur quand l'ID n'existe pas
     }
   catch(error){
     console.trace(error);
@@ -95,7 +95,7 @@ async DeleteProfile(req, res) {
   const id = Number(req.params.id);
   try {
       const deleteProfile = await dataMapper.DeleteOneProfile(id);
-      res.status(200).json(`L'article avec l'ID n°${id} a bien été supprimé`);
+      res.status(200).json(`Le profile avec l'ID n°${id} a bien été supprimé`);
     }
   catch(error){
     console.trace(error);

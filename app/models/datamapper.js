@@ -196,6 +196,28 @@ const dataMapper = {
     }
   },
 
+  // modifie un profile de la BDD via son ID
+  async UpdateOneProfile(id, nom, prenom, adresse_mail) {
+    const preparedQuery = {
+      text: 'UPDATE "utilisateur" SET "nom" = $2 , "prenom" = $3, "adresse_mail" = $4 WHERE "id" = $1 RETURNING "id", "nom", "prenom", "adresse_mail" ',
+      values: [id, nom, prenom, adresse_mail],
+    };
+    const updatedProfile = await client.query(preparedQuery);
+    return updatedProfile.rows[0];
+  },
+
+  // supprime un profile de la BDD via son ID
+  async DeleteOneProfile(id) {
+    const preparedQuery = {
+      text: 'DELETE FROM "utilisateur" WHERE "id" = $1',
+      values: [id],
+    };
+    const deleteProfile = await client.query(preparedQuery);
+    if(deleteProfile.rowCount === 1) {
+      return console.log("Delete succesful");
+    } throw new Error("Delete failed");
+  },
+
 };
 
 module.exports = dataMapper;
