@@ -35,9 +35,9 @@ router.get('/api/users', auth, userController.AllUsers);                        
 router.post('/api/register', validate(registerUser, 'body'),userController.AddUser);          // ajoute un utilisateur avec mot de passe crypté à la BDD
 router.post('/api/login', validate(loginUser, 'body'), userController.Login);                 // identifie un utilisateur via email et mot de passe crypté depuis la BDD
 router.post('/api/refresh-token', userController.RefreshToken);                               // rafraichi le refreshToken du porteur et passe en nouveau accessToken et refreshToken //! TODO fonction à vérifier
-router.get('/api/profile/:id', userController.OneProfilePage);
-router.patch('/profile/:id/update', userController.UpdateProfile);
-router.delete('/profile/:id/delete', userController.DeleteProfile);
+router.get('/api/profile/:id', userController.OneProfilePage);                                // affiche des informations pour la page profil d'un utilisateur
+router.patch('/api/profile/:id/update', userController.UpdateProfile);                            // modifie les informations de la page profil d'un utilisateur
+router.delete('/api/profile/:id/delete', userController.DeleteProfile);                           // supprime le profil d'un utilisateur
 
 
 //router.get('/api/logout', jwtController.Logout);                                             // déconnecte l'utilisateur coté client ? //! a voir avec le front

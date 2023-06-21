@@ -56,13 +56,13 @@ CREATE TABLE IF NOT EXISTS "categorie_article" (
 
 -- foreignkeys and created_at/updated_at columns insertions
 ALTER TABLE "article" 
-   ADD COLUMN "utilisateur_vente_id" INT NOT NULL REFERENCES "utilisateur" ("id"),
-   ADD COLUMN "utilisateur_achat_id" INT REFERENCES "utilisateur" ("id"),
+   ADD COLUMN "utilisateur_vente_id" INT NOT NULL REFERENCES "utilisateur" ("id") ON DELETE CASCADE,
+   ADD COLUMN "utilisateur_achat_id" INT REFERENCES "utilisateur" ("id") ON DELETE CASCADE,
    ADD COLUMN "created_at" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
    ADD COLUMN "updated_at" TIMESTAMPTZ;
 
 ALTER TABLE "encherir" 
-   ADD COLUMN "utilisateur_id" INT NOT NULL REFERENCES "utilisateur" ("id"),
+   ADD COLUMN "utilisateur_id" INT NOT NULL REFERENCES "utilisateur" ("id") ON DELETE CASCADE,
    ADD COLUMN "article_id" INT NOT NULL REFERENCES "article" ("id") ON DELETE CASCADE,
    ADD COLUMN "created_at" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
    ADD COLUMN "updated_at" TIMESTAMPTZ;
