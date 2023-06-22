@@ -122,3 +122,48 @@ class UserController {
     }
   }
 }
+
+
+
+//---------------------------------------------------
+
+function supprimerProfil(profilId) {
+  // Vérification des enchères à la vente
+  const enchereVenteEnCours = rechercherEncheresVenteEnCours(profilId);
+  if (enchereVenteEnCours.length > 0) {
+    console.log("Le profil a des enchères en cours à la vente. Suppression impossible.");
+    return;
+  }
+
+  // Vérification des enchères à l'achat
+  const enchereAchatEnCours = rechercherEncheresAchatEnCours(profilId);
+  if (enchereAchatEnCours.length > 0) {
+    console.log("Le profil a des enchères en cours à l'achat. Suppression impossible.");
+    return;
+  }
+
+  // Suppression du profil
+  supprimerProfilDeLaBase(profilId);
+  console.log("Le profil a été supprimé avec succès.");
+}
+
+function rechercherEncheresVenteEnCours(profilId) {
+  // Requête pour rechercher les enchères où le profil est le vendeur
+  const resultats = encheres.filter((enchere) => enchere.vendeurId === profilId && enchere.etat === 'en_cours');
+  return resultats;
+}
+
+function rechercherEncheresAchatEnCours(profilId) {
+  // Requête pour rechercher les enchères où le profil est l'acheteur
+  const resultats = encheres.filter((enchere) => enchere.acheteurId === profilId && enchere.etat === 'en_cours');
+  return resultats;
+}
+
+function supprimerProfilDeLaBase(profilId) {
+  // Supprimer le profil de la base de données
+  profils = profils.filter((profil) => profil.id !== profilId);
+}
+
+// Exemple d'utilisation
+const profilId = 123;
+supprimerProfil(profilId);

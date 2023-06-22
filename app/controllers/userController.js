@@ -80,8 +80,8 @@ const userController = {
   async UpdateProfile(req, res) {
     const id = Number(req.params.id);
     try {
-      const { nom, prenom, adresse_mail } = req.body;
-      const profile = await dataMapper.UpdateOneProfile(id, nom, prenom, adresse_mail);
+      const { nom, prenom, adresse, adresse_mail } = req.body;
+      const profile = await dataMapper.UpdateOneProfile(id, nom, prenom, adresse, adresse_mail);
       res.json({ status : 'profile update successful', data : profile }); //!! TODO modifier la condition d'erreur quand l'ID n'existe pas
     }
   catch(error){

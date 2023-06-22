@@ -10,7 +10,7 @@
         node index.js
 
   Comment utiliser le projet.
-        config .env et .sqitch?
+        config .env et .sqitch? DONE
         node index.js
 
   Inclure des crédits. DONE
