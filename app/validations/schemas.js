@@ -29,7 +29,7 @@ const addArticle = Joi.object({
 });
 
 const updateArticle = Joi.object({
-  nom: Joi.string().required(),
+  nom: Joi.string().required().max(23),
   photo: Joi.string().required(),
   description: Joi.string().max(3000),
   utilisateur_vente_id: Joi.number().integer().positive().min(1).required(),
@@ -37,11 +37,18 @@ const updateArticle = Joi.object({
 
 
 const auction = Joi.object({
-prix: Joi.number().integer().positive().required(),
-articleId: Joi.number().integer().positive().min(1).required(),
-acheteurId: Joi.number().integer().positive().min(1).required(),
+  prix: Joi.number().integer().positive().required(),
+  articleId: Joi.number().integer().positive().min(1).required(),
+  acheteurId: Joi.number().integer().positive().min(1).required(),
+});
+
+const updateProfile = Joi.object({
+  nom: Joi.string().required(),
+  prenom: Joi.string().required(),
+  adresse: Joi.string(),
+  adresse_mail: Joi.string().email().required(),
 })
 
 
 
-module.exports = { registerUser, loginUser, addArticle, updateArticle, auction  };
+module.exports = { registerUser, loginUser, addArticle, updateArticle, auction, updateProfile };

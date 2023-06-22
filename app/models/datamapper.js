@@ -161,7 +161,7 @@ const dataMapper = {
 
 
   async getOneProfile(id){
-    const profilePreparedQuery = `SELECT "id", "prenom", "nom", "adresse_mail", "created_at", "updated_at"  FROM "utilisateur" WHERE "id" = $1`;
+    const profilePreparedQuery = `SELECT "id", "prenom", "nom", "adresse", "adresse_mail", "created_at", "updated_at"  FROM "utilisateur" WHERE "id" = $1`;
     const values = [id];
     const profileResult = await client.query(profilePreparedQuery, values);
     const profile = profileResult.rows[0];

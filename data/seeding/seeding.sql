@@ -15,18 +15,19 @@ INSERT INTO utilisateur(prenom, nom, adresse, adresse_mail, mot_de_passe) VALUES
 
 
 INSERT INTO article(nom, photo, description, prix_de_depart, date_de_fin, montant, date_et_heure, utilisateur_vente_id, utilisateur_achat_id) VALUES
-('Chaise', '/images/chaise.jpg', 'La plus belle chaise du monde', 35.50, NOW()-'1 day'::interval+'7 days'::interval, 40.00, NOW()-'1 day'::interval, 1, 2),
-('Rateau', '/images/rateau.jpg', 'Description du rateau', 10.00, NOW()-'3 days'::interval+'7 days'::interval, 15.00, NOW()-'3 days'::interval, 1, 3),
-('Raquette de tennis', '/images/raquette de tennis.jpg', 'Spéciale Roland Garros', 40.00, NOW()-'2 days'::interval+'7 days'::interval, 44.00, NOW()-'2 days'::interval, 1, 2),
-('Monopoly edition spéciale', '/images/monopoly.jpg', 'C''est une édition spéciale', 250.00, NOW()+'7 days'::interval, 300.00, NOW(), 2, 1),
-('Robe', '/images/robe.jpg', 'Robe de bal de promo, jamais servie', 800.00, NOW()-'1 day 8 hours'::interval+'7 days'::interval, 900.00, NOW()-'1 day 8 hours'::interval, 3, 1),
-('Table', '/images/table.jpeg', 'La plus belle table du monde', 10, NOW()-'1 day'::interval+'7 days'::interval, 40.00, NOW()-'1 day'::interval, 1, 2),
-('Canapé', '/images/canapé.jpeg', 'Vla le canapé', 3500, NOW()-'1 day'::interval+'7 days'::interval, 4000.00, NOW()-'1 day'::interval, 2, 3),
-('Arrosoir', '/images/arrosoir.jpeg', 'Description de l''arrosoir', 100.00, NOW()-'5 days'::interval+'7 days'::interval, 150.00, NOW()-'3 days'::interval, 2, 1),
-('Ballon', '/images/ballon.jpeg', 'Ballon officiel France 98', 75.00, NOW()-'5 days'::interval+'7 days'::interval, 80.00, NOW()-'2 days'::interval, 1, 2),
-('Les petits cheveaux', '/images/petitscheveaux.jpeg', 'Edition spéciale PETA', 200.00, NOW()+'7 days'::interval, 300.00, NOW(), 1, 2),
-('Jean', '/images/jean.jpeg', 'Taille 38', 1200.00, NOW()-'1 day 8 hours'::interval+'7 days'::interval, 1300.00, NOW()-'1 day 8 hours'::interval, 3, 1),
-('Parasol', '/images/parasol.jpeg', 'Ombrage et style authentique', 100, NOW()-'1 day'::interval+'7 days'::interval, 400.00, NOW()-'1 day'::interval, 2, 3);
+('Chaise', '/images/chaise.jpg', 'La plus belle chaise du monde', 35.00, '2023-06-21'::date +'15 hours 30 minutes'::interval +'7 days'::interval, 40.00, '2023-06-21'::date +'15 hours 30 minutes'::interval, 1, 2),
+('Rateau', '/images/rateau.jpg', 'Description du rateau', 10.00, '2023-06-20'::date +'12 hours 30 minutes'::interval +'7 days'::interval, 15.00, '2023-06-20'::date +'12 hours 30 minutes'::interval, 1, 3),
+('Raquette de tennis', '/images/raquette de tennis.jpg', 'Spéciale Roland Garros', 40.00, '2023-06-20'::date +'10 hours'::interval +'7 days'::interval, 40.00, '2023-06-20'::date +'10 hours'::interval, 1, 2),
+('Monopoly edition spéciale', '/images/monopoly.jpg', 'C''est une édition spéciale', 250.00, '2023-06-20'::date +'8 hours 40 minutes'::interval +'7 days'::interval, 250.00, '2023-06-20'::date +'8 hours 40 minutes'::interval, 2, 1),
+('Robe', '/images/robe.jpg', 'Robe de bal de promo, jamais servie', 800.00, '2023-06-19'::date +'10 hours'::interval +'7 days'::interval, 900.00, '2023-06-19'::date +'10 hours'::interval, 3, 1),
+('Table', '/images/table.jpeg', 'La plus belle table du monde', 10.00, '2023-06-15'::date +'10 hours'::interval +'7 days'::interval, 10.00, '2023-06-15'::date +'10 hours'::interval, 1, 2),
+('Canapé', '/images/canapé.jpeg', 'Vla le canapé', 3500.00, '2023-06-13'::date +'20 hours 50 minutes'::interval +'7 days'::interval, 3500.00, '2023-06-13'::date +'20 hours 50 minutes'::interval, 2, 3),
+('Arrosoir', '/images/arrosoir.jpeg', 'Description de l''arrosoir', 100.00, '2023-06-10'::date +'8 hours 20 minutes'::interval +'7 days'::interval, 100.00, '2023-06-10'::date +'8 hours 20 minutes'::interval, 2, 1),
+('Ballon', '/images/ballon.jpeg', 'Ballon officiel France 98', 75.00, '2023-06-14'::date +'17 hours 5 minutes'::interval +'7 days'::interval, 75.0, '2023-06-14'::date +'17 hours 5 minutes'::interval, 1, 2),
+('Les petits cheveaux', '/images/petitscheveaux.jpeg', 'Edition spéciale PETA', 200.00, '2023-06-19'::date +'12 hours 12 minutes'::interval +'7 days'::interval, 200.00, '2023-06-19'::date +'12 hours 12 minutes'::interval, 1, 2),
+('Jean', '/images/jean.jpeg', 'Taille 38', 1200.00, '2023-06-18'::date +'11 hours 45 minutes'::interval +'7 days'::interval, 1300.00, '2023-06-18'::date +'11 hours 45 minutes'::interval, 3, 1),
+('Parasol', '/images/parasol.jpeg', 'Ombrage et style authentique', 100, '2023-06-21'::date +'9 hours'::interval +'7 days'::interval, 400.00, '2023-06-21'::date +'9 hours'::interval, 2, 3),
+('Lit (expiré test)', '/images/lit.jpeg', 'Lit douillet', 800.00, '2023-06-01'::date + '12 hours'::interval, 1050.00, '2023-05-20'::date + '12 hours'::interval, 7, 1);
 
 
 
@@ -50,31 +51,36 @@ INSERT INTO categorie_article(categorie_id, article_id) VALUES
 (3, 9),
 (4, 10),
 (5, 11),
-(2, 12);
+(2, 12),
+(1, 13);
 
 INSERT INTO encherir(montant, date, utilisateur_id, article_id) VALUES
-(40.00, NOW()-'1 hour'::interval, 2, 1),
-(39.00, NOW()-'3 hours'::interval, 3, 1),
-(38.00, NOW()-'3 hours'::interval, 2, 1),
-(37.00, NOW()-'4 hours'::interval, 3, 1),
+(40.00, '2023-06-22'::date + '9 hours'::interval, 2, 1),
+(39.00, '2023-06-22'::date + '8 hours'::interval, 3, 1),
+(38.00, '2023-06-21'::date + '17 hours'::interval, 2, 1),
+(37.00, '2023-06-21'::date + '16 hours'::interval, 3, 1),
 
-(15.00, NOW()-'1 hours'::interval, 3, 2),
-(12.00, NOW()-'2 hours'::interval, 2, 2),
-(11.00, NOW()-'4 hours'::interval, 3, 2),
+(15.00, '2023-06-21'::date + '15 hours'::interval, 3, 2),
+(12.00, '2023-06-21'::date + '9 hours'::interval, 2, 2),
+(11.00, '2023-06-20'::date + '13 hours'::interval, 3, 2),
 
-(400.00, NOW()-'2 hours'::interval, 1, 12),
-(350.00, NOW()-'3 hours'::interval, 2, 12),
-(300.00, NOW()-'3 hours'::interval, 1, 12),
-(250.00, NOW()-'3 hours'::interval, 2, 12),
-(150.00, NOW()-'4 hours'::interval, 3, 12),
+(900.00, '2023-06-20'::date + '9 hours'::interval, 1, 5),
+(875.00, '2023-06-19'::date + '17 hours'::interval, 6, 5),
+(850.00, '2023-06-19'::date + '11 hours'::interval, 1, 5),
 
-(900.00, NOW()-'1 hours'::interval, 3, 5),
-(875.00, NOW()-'2 hours'::interval, 1, 5),
-(850.00, NOW()-'3 hours'::interval, 3, 5),
+(1300.00, '2023-06-21'::date + '8 hours'::interval, 1, 11),
+(1275.00, '2023-06-19'::date + '9 hours'::interval, 4, 11),
+(1250.00, '2023-06-18'::date + '19 hours'::interval, 6, 11),
 
-(1300.00, NOW()-'2 hours'::interval, 2, 11),
-(1275.00, NOW()-'3 hours'::interval, 3, 11),
-(1250.00, NOW()-'4 hours'::interval, 1, 11);
+(400.00, '2023-06-22'::date + '18 hours'::interval, 3, 12),
+(350.00, '2023-06-22'::date + '19 hours'::interval, 2, 12),
+(300.00, '2023-06-22'::date + '7 hours'::interval, 6, 12),
+(250.00, '2023-06-21'::date + '15 hours'::interval, 5, 12),
+(150.00, '2023-06-21'::date + '10 hours'::interval, 3, 12),
+
+(1050.00, '2023-06-01'::date + '11 hours'::interval, 1, 13),
+(900.00, '2023-05-28'::date + '8 hours'::interval, 6, 13),
+(850.00, '2023-05-20'::date + '17 hours'::interval, 5, 13);
 
 
 
