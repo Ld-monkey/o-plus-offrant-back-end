@@ -4,6 +4,7 @@ const Joi = require('joi');
 const registerUser = Joi.object({
   prenom: Joi.string().required(),
   nom: Joi.string().required(),
+  adresse : Joi.string().required(),
   adresse_mail: Joi.string().email().required(),
   mot_de_passe: Joi.string().required().min(4),
 });

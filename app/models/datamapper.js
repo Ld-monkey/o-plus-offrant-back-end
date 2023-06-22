@@ -5,10 +5,10 @@ const dataMapper = {
   //affiche tous les articles de la BDD + les catégories + les 5 dernières enchères qui arrivent à expiration
   async AllArticles() {
     // récupère tous les articles
-    const articles = await client.query(`SELECT article.*, categorie.nom AS categorie_nom, categorie.id AS categorie_id
-      FROM article
-      JOIN categorie_article ON categorie_article.article_id = article.id
-      JOIN categorie ON categorie.id = categorie_article.categorie_id
+    const articles = await client.query(`SELECT "article".*, "categorie"."nom" AS "categorie_nom", "categorie"."id" AS "categorie_id"
+      FROM "article"
+      JOIN "categorie_article" ON "categorie_article"."article_id" = "article"."id"
+      JOIN "categorie" ON "categorie"."id" = "categorie_article"."categorie_id"
       WHERE "date_de_fin">NOW()`);
     const allArticles = articles.rows;
     // récupère toutes les catégories
@@ -28,7 +28,7 @@ const dataMapper = {
 
   // affiche un article d'après son id
   async getOneArticle(id){
-    const articlePreparedQuery = `SELECT * FROM article WHERE "id" = $1`;
+    const articlePreparedQuery = `SELECT * FROM "article" WHERE "id" = $1`;
     const values = [id];
     const articlesResult = await client.query(articlePreparedQuery, values);
     const article = articlesResult.rows[0];
@@ -63,11 +63,11 @@ const dataMapper = {
   // affiche tous les articles d'une catégorie donnée via son id
   async getArticlesByCategoryId(id) {
     const preparedQuery = `
-      SELECT article.*, article.nom AS article, categorie_article.categorie_id, categorie.nom AS categorie
-      FROM article
-      JOIN categorie_article ON categorie_article.article_id = article.id
-      JOIN categorie ON categorie.id = categorie_article.categorie_id
-      WHERE categorie_article.categorie_id = $1`;
+      SELECT "article".*, "article"."nom" AS "article", "categorie_article"."categorie_id", "categorie"."nom" AS "categorie"
+      FROM "article"
+      JOIN "categorie_article" ON "categorie_article"."article_id" = "article"."id"
+      JOIN "categorie" ON "categorie"."id" = "categorie_article"."categorie_id"
+      WHERE "categorie_article"."categorie_id" = $1`;
     const values = [id];
     const result = await client.query(preparedQuery, values);
     return result.rows;
@@ -172,7 +172,7 @@ const dataMapper = {
     const histSellResult = await client.query(histSellPreparedQuery, histSellvalues);
     const histSell = histSellResult.rows;
 
-    const histBuyPreparedQuery = `SELECT "encherir"."id", "encherir"."montant" AS "mon enchère", "encherir"."date", "article"."id", "article"."nom", "article"."photo", "article"."description", "article"."prix_de_depart", "article"."montant" AS "enchère actuelle", "article"."date_de_fin"
+    const histBuyPreparedQuery = `SELECT "encherir"."id", "encherir"."montant" AS "mon_enchere", "encherir"."date", "article"."id", "article"."nom", "article"."photo", "article"."description", "article"."prix_de_depart", "article"."montant" AS "enchere_actuelle", "article"."date_de_fin"
     FROM "encherir"
     JOIN "article" ON "article"."id" = "encherir"."article_id"
     WHERE "encherir"."utilisateur_id" = $1`;
@@ -180,7 +180,7 @@ const dataMapper = {
     const histBuyResult = await client.query(histBuyPreparedQuery, histBuyValues);
     const histBuy = histBuyResult.rows;
 
-    const wonAuctionPreparedQuery = `SELECT * FROM article WHERE "date_de_fin" < NOW() AND utilisateur_achat_id = $1`;
+    const wonAuctionPreparedQuery = `SELECT * FROM "article" WHERE "date_de_fin" < NOW() AND "utilisateur_achat_id" = $1`;
     const wonAuctionValues = [id];
     const wonAuctionResult = await client.query(wonAuctionPreparedQuery, wonAuctionValues);
     const wonAuction = wonAuctionResult.rows;

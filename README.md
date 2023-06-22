@@ -1,32 +1,9 @@
-<!--
-  Titre du projet. DONE
-  Description du projet. DONE
-  Comment installer et exécuter le projet.
-        créer une BDD DONE
-        créer l'utilisateur de la BDD DONE
-        premières tables ?
-        récupérer les modules (npm install) DONE
-        lancer des scripts ???
-        node index.js
-
-  Comment utiliser le projet.
-        config .env et .sqitch? DONE
-        node index.js
-
-  Inclure des crédits. DONE
-  Ajouter une licence.
-  Badges.
- -->
-
-
-
 <div align="center">
-    <img src="./public/Logo.webp" width="200" />
     <h1>O + Offrant (Back-end)</h1>
     <p>Site d'enchère</p>
 </div>
 
-## :books: **Description**
+## **Description**
 
 Le projet 6 nommé **O + Offrant** est un site d'enchère destiné aux particuliers majeurs.<br>
 Il permet de déposer un article de son choix et ou d'enchérir avec des tokens afin de remporter un lot.
@@ -84,7 +61,7 @@ Dans le fichier **.env** remplir les variables
 Configurer sqitch
 
 ```bash
-# Copier l'exemple de l'environnement
+# Copier l'exemple de l'environnement sqitch
 cp sqitch.conf.example sqitch.conf
 
 # Configurer sqitch
@@ -98,20 +75,63 @@ Dans le fichier **sqitch.conf** remplir les variables
 
 ## 🪄 **Usage**
 
-Pour lancer le site en [localhost](http://localhost:5173/) :
+Vérifier les paramétrages des scripts dans **package.json** en fonction du nom de votre **base de données** et **d'utilisateur**.
+
+Exemple avec **db:create** :
 
 ```bash
-yarn dev
+"db:create": "psql -U PGUSER -d PGDATABASE -f ./data/deploy/init.sql",
 ```
 ---
+
+
+Pour lancer la création de la base de données :
+
+```bash
+npm run db:create
+```
+---
+
+
+Pour lancer le seeding de la base de données :
+
+```bash
+npm run db:populate
+```
+---
+
+
+Si besoin, il existe un script pour réinitiliser la base et les données :
+
+```bash
+npm run reset
+```
+---
+
+
+Pour lancer le site en localhost :
+
+```bash
+npm run dev
+```
+---
+
+
+Pour lancer le site en production :
+
+```bash
+npm run start
+```
+---
+
 
 ## ✨ **Contributeurs**
 
    * Coté Front-end
-      + [Christophe-miranville](https://github.com/Christophe-miranville)
-      + [Estelle-Li-Zheng](https://github.com/Estelle-Li-Zheng)
-      + [Ld-monkey](https://github.com/Ld-monkey)
+      + [Ludovic FOURTEAU](https://github.com/Ld-monkey)
+      + [Estelle LI-ZHENG](https://github.com/Estelle-Li-Zheng)
+      + [Christophe MIRANVILLE](https://github.com/Christophe-miranville)
 
    * Coté Back-end
-      + [DidierLam](https://github.com/DidierLam)
-      + [stephanebidard](https://github.com/stephanebidard)
+      + [Stéphane BIDARD](https://github.com/stephanebidard)
+      + [Didier LAMBERT](https://github.com/DidierLam)
