@@ -100,3 +100,13 @@
  * @property {integer} acheteurId - id de l'acheteur qui enchérit
  * 
  */
+
+
+/**
+ * @typedef {object} updateProfile
+ * @property {string} nom - nom de l'utilisateur
+ * @property {string} prenom - prénom de l'utilisateur
+ * @property {string} adresse - adresse de l'utilisateur
+ * @property {integer} adresse_mail - email de l'utilisateur
+ * 
+ */

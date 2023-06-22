@@ -7,7 +7,7 @@ const userController = require('../controllers/userController.js');
 
 // Middleware d'authorisation----------------------------------------------------------------------------------
 const auth = require('../models/middlewares/auth.js');
-const { registerUser, loginUser, addArticle, updateArticle, auction  } = require('../validations/schemas.js')
+const { registerUser, loginUser, addArticle, updateArticle, auction, updateProfile } = require('../validations/schemas.js')
 const validate = require('../validations/validate.js');
 
 
@@ -36,7 +36,7 @@ router.post('/api/register', validate(registerUser, 'body'),userController.AddUs
 router.post('/api/login', validate(loginUser, 'body'), userController.Login);                 // identifie un utilisateur via email et mot de passe crypté depuis la BDD
 router.post('/api/refresh-token', userController.RefreshToken);                               // rafraichi le refreshToken du porteur et passe en nouveau accessToken et refreshToken //! TODO fonction à vérifier
 router.get('/api/profile/:id', userController.OneProfilePage);                                // affiche des informations pour la page profil d'un utilisateur
-router.patch('/api/profile/:id/update', userController.UpdateProfile);                            // modifie les informations de la page profil d'un utilisateur
+router.patch('/api/profile/:id/update', validate(updateProfile, 'body'), userController.UpdateProfile);                            // modifie les informations de la page profil d'un utilisateur
 router.delete('/api/profile/:id/delete', userController.DeleteProfile);                           // supprime le profil d'un utilisateur
 
 
