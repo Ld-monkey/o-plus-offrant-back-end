@@ -3,15 +3,15 @@ BEGIN;
 
 TRUNCATE article, utilisateur, categorie, encherir, categorie_article RESTART IDENTITY;
 
-INSERT INTO utilisateur(prenom, nom, adresse_mail, mot_de_passe) VALUES 
-('Tony', 'Toto', 'Tony@email.com', '$2b$10$XSgPV66JaFdhsLi0ThtCkOX/u01cnWajZiVAzdkiIKb4r7XScdIi6'),
-('Antonio', 'Toti', 'Antonio@email.com', '$2b$10$cvupFjo66gXR.ttGoImp/ecCUgCC0wlUwv7VR4xsQ/.3OZEMuBHvi'),
-('Anthony', 'Tito', 'Anthony@email.com', '$2b$10$ilFkuNB9q62mlzlN6KUFtOAYX1hS54Xa9XJTF7fwkVLROQxfoiqEe'),
-('Stéphane', 'Bidard', 'Stephane@email.com', '$2b$10$BhlwaJpfE0kEpfis.TYPFub6JSDrOGqA.Lre1wlF.V5/AEUBfVZqO'),
-('Ludovic', 'Fourteau', 'Ludovic@email.com', '$2b$10$xzGbptvHRVi.23QczdjFVOsr84c.s/.4x/YpECRxJAvTY5f38iAry'),
-('Didier', 'Lambert', 'Didier@email.com', '$2b$10$ihRHw9lUcuejDcrwJV5zCOXOKpj44smoe8LRwjQsepGl0476N4vR6'),
-('Estelle', 'Li-Zheng', 'Estelle@email.com', '$2b$10$bhdpyQvryzTTlX7ZKFyQcezK1qI9yr9c3Em7fs3L4oDaOP1wn59ye'),
-('Christophe', 'Miranville', 'Christophe@email.com', '$2b$10$0H.hUDGDfxmXyY9g6K6iNeTedKfmZbNQDF5EOW82386ivaO1IMVRC');
+INSERT INTO utilisateur(prenom, nom, adresse, adresse_mail, mot_de_passe) VALUES 
+('Tony', 'Toto', '10 rue des Champs', 'Tony@email.com', '$2b$10$XSgPV66JaFdhsLi0ThtCkOX/u01cnWajZiVAzdkiIKb4r7XScdIi6'),
+('Antonio', 'Toti', '11 rue des Champs', 'Antonio@email.com', '$2b$10$cvupFjo66gXR.ttGoImp/ecCUgCC0wlUwv7VR4xsQ/.3OZEMuBHvi'),
+('Anthony', 'Tito', '12 rue des Champs', 'Anthony@email.com', '$2b$10$ilFkuNB9q62mlzlN6KUFtOAYX1hS54Xa9XJTF7fwkVLROQxfoiqEe'),
+('Stéphane', 'Bidard', '13 rue des Champs', 'Stephane@email.com', '$2b$10$BhlwaJpfE0kEpfis.TYPFub6JSDrOGqA.Lre1wlF.V5/AEUBfVZqO'),
+('Ludovic', 'Fourteau', '14 rue des Champs', 'Ludovic@email.com', '$2b$10$xzGbptvHRVi.23QczdjFVOsr84c.s/.4x/YpECRxJAvTY5f38iAry'),
+('Didier', 'Lambert', '15 rue des Champs', 'Didier@email.com', '$2b$10$ihRHw9lUcuejDcrwJV5zCOXOKpj44smoe8LRwjQsepGl0476N4vR6'),
+('Estelle', 'Li-Zheng', '16 rue des Champs', 'Estelle@email.com', '$2b$10$bhdpyQvryzTTlX7ZKFyQcezK1qI9yr9c3Em7fs3L4oDaOP1wn59ye'),
+('Christophe', 'Miranville', '17 rue des Champs', 'Christophe@email.com', '$2b$10$0H.hUDGDfxmXyY9g6K6iNeTedKfmZbNQDF5EOW82386ivaO1IMVRC');
 
 
 INSERT INTO article(nom, photo, description, prix_de_depart, date_de_fin, montant, date_et_heure, utilisateur_vente_id, utilisateur_achat_id) VALUES

@@ -28,6 +28,7 @@ CREATE TABLE IF NOT EXISTS "utilisateur" (
     "id" INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     "prenom" TEXT NOT NULL,
     "nom" TEXT NOT NULL,
+    "adresse" TEXT,
     "adresse_mail" email NOT NULL UNIQUE,
     "mot_de_passe" TEXT NOT NULL,
     "created_at" TIMESTAMPTZ NOT NULL DEFAULT NOW(),

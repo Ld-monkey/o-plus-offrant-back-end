@@ -8,7 +8,8 @@ const dataMapper = {
     const articles = await client.query(`SELECT article.*, categorie.nom AS categorie_nom, categorie.id AS categorie_id
       FROM article
       JOIN categorie_article ON categorie_article.article_id = article.id
-      JOIN categorie ON categorie.id = categorie_article.categorie_id`);
+      JOIN categorie ON categorie.id = categorie_article.categorie_id
+      WHERE "date_de_fin">NOW()`);
     const allArticles = articles.rows;
     // récupère toutes les catégories
     const result = await client.query(`SELECT * FROM "categorie"`);
@@ -35,11 +36,10 @@ const dataMapper = {
     const categoriesResult = await client.query(`SELECT * FROM "categorie"`);
     const allCategories = categoriesResult.rows;
 
-    const historicPreparedQuery = `SELECT DISTINCT "encherir"."id", "encherir"."montant", "utilisateur_id", "article_id", "date", "utilisateur"."prenom", "utilisateur"."nom" 
-      FROM "encherir"
-      JOIN "utilisateur" ON "utilisateur"."id" = "encherir"."utilisateur_id"
-      JOIN "article" ON "article"."utilisateur_achat_id" = "utilisateur"."id"
-      WHERE "encherir"."article_id" = $1`;
+    const historicPreparedQuery = `SELECT "encherir".*, "utilisateur"."prenom", "utilisateur"."nom"
+    FROM "encherir"
+    JOIN "utilisateur" ON "utilisateur"."id" = "encherir"."utilisateur_id"
+    WHERE "encherir"."article_id" = $1 ORDER BY "montant" DESC`;
     const histValues = [id];
     const histResult = await client.query(historicPreparedQuery, histValues);
     const histArticle = histResult.rows;
@@ -84,10 +84,10 @@ const dataMapper = {
   },
 
   // ajouter une article à la BDD
-  async AddOneArticle(nom, photo, description, prix_de_depart, date_de_fin, date_et_heure, utilisateur_vente_id) {
+  async AddOneArticle(nom, photo, description, prix_de_depart, date_de_fin, date_et_heure, utilisateur_vente_id, montant) {
     const preparedQuery = {
-      text: 'INSERT INTO "article" ("nom", "photo", "description", "prix_de_depart", "date_de_fin", "date_et_heure", "utilisateur_vente_id") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *',
-      values: [nom, photo, description, prix_de_depart, date_de_fin, date_et_heure, utilisateur_vente_id],
+      text: 'INSERT INTO "article" ("nom", "photo", "description", "prix_de_depart", "date_de_fin", "date_et_heure", "utilisateur_vente_id", "montant") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *',
+      values: [nom, photo, description, prix_de_depart, date_de_fin, date_et_heure, utilisateur_vente_id, montant],
     };
     const newArticle = await client.query(preparedQuery);
     return newArticle.rows[0];
@@ -172,10 +172,9 @@ const dataMapper = {
     const histSellResult = await client.query(histSellPreparedQuery, histSellvalues);
     const histSell = histSellResult.rows;
 
-    const histBuyPreparedQuery = `SELECT DISTINCT "encherir"."id", "encherir"."montant", "utilisateur_id", "article_id", "date", "utilisateur"."prenom", "utilisateur"."nom" 
+    const histBuyPreparedQuery = `SELECT "encherir"."id", "encherir"."montant" AS "mon enchère", "encherir"."date", "article"."id", "article"."nom", "article"."photo", "article"."description", "article"."prix_de_depart", "article"."montant" AS "enchère actuelle", "article"."date_de_fin"
     FROM "encherir"
-    JOIN "utilisateur" ON "utilisateur"."id" = "encherir"."utilisateur_id"
-    JOIN "article" ON "article"."utilisateur_achat_id" = "utilisateur"."id"
+    JOIN "article" ON "article"."id" = "encherir"."article_id"
     WHERE "encherir"."utilisateur_id" = $1`;
     const histBuyValues = [id];
     const histBuyResult = await client.query(histBuyPreparedQuery, histBuyValues);
@@ -197,10 +196,10 @@ const dataMapper = {
   },
 
   // modifie un profile de la BDD via son ID
-  async UpdateOneProfile(id, nom, prenom, adresse_mail) {
+  async UpdateOneProfile(id, nom, prenom, adresse, adresse_mail) {
     const preparedQuery = {
-      text: 'UPDATE "utilisateur" SET "nom" = $2 , "prenom" = $3, "adresse_mail" = $4 WHERE "id" = $1 RETURNING "id", "nom", "prenom", "adresse_mail" ',
-      values: [id, nom, prenom, adresse_mail],
+      text: 'UPDATE "utilisateur" SET "nom" = $2 , "prenom" = $3, "adresse" = $4, "adresse_mail" = $5 WHERE "id" = $1 RETURNING "id", "nom", "prenom", "adresse", "adresse_mail"',
+      values: [id, nom, prenom, adresse, adresse_mail],
     };
     const updatedProfile = await client.query(preparedQuery);
     return updatedProfile.rows[0];
