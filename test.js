@@ -167,3 +167,55 @@ function supprimerProfilDeLaBase(profilId) {
 // Exemple d'utilisation
 const profilId = 123;
 supprimerProfil(profilId);
+
+
+
+//------------récupération image----------------
+
+const path = require('path'); // Import du module path
+
+
+const storage = multer.diskStorage({
+  destination: 'public/images',
+  filename: (req, file, cb) => {
+    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+    const ext = path.extname(file.originalname);
+    const filename = file.originalname.split('.')[0] + '-' + uniqueSuffix + ext;
+    cb(null, filename);
+  }
+});
+
+const upload = multer({ storage });
+
+app.post('/api/images', upload.single('imageName'), (req, res) => {
+  const imageName = req.file.filename;
+  const description = req.body.description;
+
+ // Requête SQL d'insertion des données dans la base de données
+ const query = {
+  text: 'INSERT INTO "photo" (image_name, description) VALUES ($1, $2)',
+  values: [imageName, description],
+};
+
+// Exécutez la requête SQL
+client.query(query, (err, res) => {
+  if (err) {
+    console.error(err);
+    res.sendStatus(500);
+  } else {
+    console.log('Image inserted into database');
+    res.send({ description: description, imageName: imageName });
+  }
+});
+  console.log(description, imageName);
+
+  const imagePath = path.join(__dirname, 'public/images', imageName);
+  res.type('image/png'); // Remplacez 'image/png' par le type d'image approprié
+
+  res.sendFile(imagePath, (err) => {
+    if (err) {
+      console.error(err);
+      res.sendStatus(500);
+    }
+  });
+});

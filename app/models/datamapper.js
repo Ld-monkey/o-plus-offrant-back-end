@@ -84,10 +84,11 @@ const dataMapper = {
   },
 
   // ajouter une article à la BDD
-  async AddOneArticle(nom, photo, description, prix_de_depart, date_de_fin, date_et_heure, utilisateur_vente_id, montant) {
+  //-----------------(nom, photo, description, prix_de_depart, date_de_fin, date_et_heure, montant, utilisateur_vente_id, categorie_id)
+  async AddOneArticle(nom, photo, description, prix_de_depart, date_de_fin, date_et_heure, montant, utilisateur_vente_id) {
     const preparedQuery = {
-      text: 'INSERT INTO "article" ("nom", "photo", "description", "prix_de_depart", "date_de_fin", "date_et_heure", "utilisateur_vente_id", "montant") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *',
-      values: [nom, photo, description, prix_de_depart, date_de_fin, date_et_heure, utilisateur_vente_id, montant],
+      text: 'INSERT INTO "article" ("nom", "photo", "description", "prix_de_depart", "date_de_fin", "date_et_heure", "montant", "utilisateur_vente_id") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *',
+      values: [nom, photo, description, prix_de_depart, date_de_fin, date_et_heure, montant, utilisateur_vente_id],
     };
     const newArticle = await client.query(preparedQuery);
     return newArticle.rows[0];
