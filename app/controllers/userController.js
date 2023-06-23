@@ -20,8 +20,8 @@ const userController = {
     try {
       const hashedPwd = await bcrypt.hash(req.body.mot_de_passe,10);
       const newUser = await client.query
-      (`INSERT INTO utilisateur(prenom, nom, adresse_mail, mot_de_passe) VALUES ($1, $2, $3, $4) RETURNING *`,
-      [req.body.prenom, req.body.nom, req.body.adresse_mail, hashedPwd] );
+      (`INSERT INTO utilisateur(prenom, nom, adresse, adresse_mail, mot_de_passe) VALUES ($1, $2, $3, $4, $5) RETURNING *`,
+      [req.body.prenom, req.body.nom, req.body.adresse, req.body.adresse_mail, hashedPwd] );
       res.json({users : newUser.rows[0]});
     } catch (error) {
       res.status(500).json({error:error.message});

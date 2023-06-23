@@ -70,11 +70,26 @@ const mainController = {
   async AddArticle(req, res) {
     try {
         // ajout de l'article depuis un JSON
-        const { nom, photo, description, prix_de_depart, date_de_fin, date_et_heure, utilisateur_vente_id, categorie_id } = req.body;
-        const article = await dataMapper.AddOneArticle(nom, photo, description, prix_de_depart, date_de_fin, date_et_heure, utilisateur_vente_id);
+
+        const nom = req.body.nom;
+        const photo = `${req.file.path.split('public')[1]}`;
+        const description = req.body.description;
+        const prix_de_depart = req.body.prix_de_depart;
+        const date_de_fin = req.body.date_de_fin;
+        const date_et_heure = req.body.date_et_heure;
+        const montant = req.body.montant;  
+        const utilisateur_vente_id = req.body.utilisateur_vente_id;
+        const categorie_id = req.body.categorie_id;
+
+
+        console.log(req.body);
+        console.log(photo);        
+        const article = await dataMapper.AddOneArticle(nom, photo, description, prix_de_depart, date_de_fin, date_et_heure, montant, utilisateur_vente_id, categorie_id);
         // mise à jour de la categorie de l'article via son ID nouvellement crée
         const idCategory = categorie_id;
         const updateCategory = await dataMapper.UpdateArticleCategory(idCategory, article.id);
+/*         const photo = req.file;
+        const updatePhoto = await dataMapper.UpdateArticlePhoto(photo, article.id); */
         res.json({ status : 'creation and update successful', data : article, categoryLink : updateCategory })
       }
     catch(error){
