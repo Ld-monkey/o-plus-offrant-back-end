@@ -18,7 +18,7 @@ const loginUser = Joi.object({
 
 const addArticle = Joi.object({
   nom: Joi.string().required().max(23),
-  photo: Joi.string().required(),
+  photo: Joi.string(),
   description: Joi.string().max(3000),
   prix_de_depart: Joi.number().integer().positive().min(1).required(),
   date_de_fin: Joi.date().greater(Joi.ref('date_et_heure')).required(),
@@ -30,7 +30,6 @@ const addArticle = Joi.object({
 
 const updateArticle = Joi.object({
   nom: Joi.string().required().max(23),
-  photo: Joi.string().required(),
   description: Joi.string().max(3000),
   utilisateur_vente_id: Joi.number().integer().positive().min(1).required(),
 });

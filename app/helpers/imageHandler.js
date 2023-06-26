@@ -1,5 +1,3 @@
-// A refacto !
-
 const path = require('path');
 const multer = require('multer');
 
@@ -10,9 +8,17 @@ const storage = multer.diskStorage({
     const extension = path.extname(file.originalname);
     const filename = file.originalname.split('.')[0] + '-' + uniqueSuffix + extension;
     callback(null, filename);
+  },
+  fileFilter: (req, file, callback) => {
+    // Vérifier le type de fichier
+    if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
+      // Accepter le fichier
+      callback(null, true);
+    } else {
+      // Rejeter le fichier
+      callback(new Error('Seuls les fichiers JPEG et PNG sont autorisés'));
+    }
   }
 });
 
-
-
-modules.exports = {upload, storage};
+module.exports = {storage};

@@ -108,10 +108,10 @@ const dataMapper = {
 
 
   // modifie un article de la BDD via son ID
-  async UpdateOneArticle(id, nom, photo, description, utilisateur_vente_id) {
+  async UpdateOneArticle(id, nom, description, utilisateur_vente_id) {
     const preparedQuery = {
-      text: 'UPDATE "article" SET "nom" = $2 , "photo" = $3, "description" = $4, "utilisateur_vente_id" = $5 WHERE "id" = $1 RETURNING *',
-      values: [id, nom, photo, description, utilisateur_vente_id],
+      text: 'UPDATE "article" SET "nom" = $2 , "description" = $3, "utilisateur_vente_id" = $4 WHERE "id" = $1 RETURNING *',
+      values: [id, nom, description, utilisateur_vente_id],
     };
     const updatedArticle = await client.query(preparedQuery);
     return updatedArticle.rows[0];
