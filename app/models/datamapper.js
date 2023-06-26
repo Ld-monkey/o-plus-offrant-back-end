@@ -108,10 +108,10 @@ const dataMapper = {
 
 
   // modifie un article de la BDD via son ID
-  async UpdateOneArticle(id, nom, photo, description, utilisateur_vente_id) {
+  async UpdateOneArticle(id, nom, description, utilisateur_vente_id) {
     const preparedQuery = {
-      text: 'UPDATE "article" SET "nom" = $2 , "photo" = $3, "description" = $4, "utilisateur_vente_id" = $5 WHERE "id" = $1 RETURNING *',
-      values: [id, nom, photo, description, utilisateur_vente_id],
+      text: 'UPDATE "article" SET "nom" = $2 , "description" = $3, "utilisateur_vente_id" = $4 WHERE "id" = $1 RETURNING *',
+      values: [id, nom, description, utilisateur_vente_id],
     };
     const updatedArticle = await client.query(preparedQuery);
     return updatedArticle.rows[0];
@@ -197,10 +197,10 @@ const dataMapper = {
   },
 
   // modifie un profile de la BDD via son ID
-  async UpdateOneProfile(id, nom, prenom, adresse, adresse_mail) {
+  async UpdateOneProfile(id, nom, prenom, adresse, adresse_mail, hashedPassword) {
     const preparedQuery = {
-      text: 'UPDATE "utilisateur" SET "nom" = $2 , "prenom" = $3, "adresse" = $4, "adresse_mail" = $5 WHERE "id" = $1 RETURNING "id", "nom", "prenom", "adresse", "adresse_mail"',
-      values: [id, nom, prenom, adresse, adresse_mail],
+      text: 'UPDATE "utilisateur" SET "nom" = $2 , "prenom" = $3, "adresse" = $4, "adresse_mail" = $5, "mot_de_passe" = $6 WHERE "id" = $1 RETURNING "id", "nom", "prenom", "adresse", "adresse_mail", "mot_de_passe"',
+      values: [id, nom, prenom, adresse, adresse_mail, hashedPassword],
     };
     const updatedProfile = await client.query(preparedQuery);
     return updatedProfile.rows[0];

@@ -26,18 +26,6 @@ const mainController = {
     }
   },
 
-  // demande toutes les catégories
-  async AllCategoriesPage(req, res) {
-    try {
-      const categories = await dataMapper.AllCategories();
-      res.send(categories);
-    }
-    catch(error){
-      console.trace(error);
-      res.status(500).send('Error 500');
-    }
-  },
-
   // demande tous les articles d'une catégorie
   async ArticlesOfOneCategory(req, res) {
     const id = Number(req.params.id);
@@ -48,18 +36,6 @@ const mainController = {
       const categories = await dataMapper.AllCategories();
       res.json({ status : 'success', filteredArticles : articles, allCategories : categories});
     }
-    catch(error){
-      console.trace(error);
-      res.status(500).send('Error 500');
-    }
-  },
-
-  // demande l'ajout d'une catégorie
-  async AddCategory(req, res) {
-    try {
-      const category = await dataMapper.AddOneCategory(req.body.nom);
-      res.json({ status : 'success', data : category });
-      }
     catch(error){
       console.trace(error);
       res.status(500).send('Error 500');
@@ -83,6 +59,7 @@ const mainController = {
 
 
         console.log(req.body);
+        console.log(req.file);
         console.log(photo);        
         const article = await dataMapper.AddOneArticle(nom, photo, description, prix_de_depart, date_de_fin, date_et_heure, montant, utilisateur_vente_id, categorie_id);
         // mise à jour de la categorie de l'article via son ID nouvellement crée
@@ -115,29 +92,15 @@ const mainController = {
   async UpdateArticle(req, res) {
     const id = Number(req.params.id);
     try {
-      const { nom, photo, description, utilisateur_vente_id } = req.body;
-      const article = await dataMapper.UpdateOneArticle(id, nom, photo, description, utilisateur_vente_id);
+      const { nom, description, utilisateur_vente_id } = req.body;
+      const article = await dataMapper.UpdateOneArticle(id, nom, description, utilisateur_vente_id);
       res.json({ status : 'success', data : article }); //!! TODO modifier la condition d'erreur quand l'ID n'existe pas
     }
   catch(error){
     console.trace(error);
     res.status(500).send('Error 500');
   }
-},
-
-
-  async Auctioning(req, res) {
-    try {
-      const { prix, articleId, acheteurId } = req.body;
-      const auction = await dataMapper.Auctioning(prix, articleId, acheteurId);
-      res.json({status :'Done', histAuctions : auction.newAuctioning.rows, updatedTableArticle : auction.updatedArticle.rows});
-    }
-    catch(error){
-      console.trace(error);
-      res.status(500).send('Error 500');
-  }
-},
-
+ },
 };
 
 
