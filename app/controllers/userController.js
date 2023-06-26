@@ -33,7 +33,7 @@ const userController = {
     try {
       const {adresse_mail,mot_de_passe} = req.body;
       const users = await client.query('SELECT * FROM "utilisateur" WHERE adresse_mail = $1', [adresse_mail] );
-      if(users.rows.length === 0) return res.status(401).json({error: "Email est incorrecte"});
+      if(users.rows.length === 0) return res.status(401).json({error: "Email est incorrect"});
       // password check
       const validPwd = await bcrypt.compare(mot_de_passe,users.rows[0].mot_de_passe);
       if(!validPwd) return res.status(401).json({error:"Incorrect password"});
@@ -80,8 +80,9 @@ const userController = {
   async UpdateProfile(req, res) {
     const id = Number(req.params.id);
     try {
-      const { nom, prenom, adresse, adresse_mail } = req.body;
-      const profile = await dataMapper.UpdateOneProfile(id, nom, prenom, adresse, adresse_mail);
+      const { nom, prenom, adresse, adresse_mail, mot_de_passe } = req.body;
+      const hashedPassword = await bcrypt.hash(mot_de_passe, 10);
+      const profile = await dataMapper.UpdateOneProfile(id, nom, prenom, adresse, adresse_mail, hashedPassword);
       res.json({ status : 'profile update successful', data : profile }); //!! TODO modifier la condition d'erreur quand l'ID n'existe pas
     }
   catch(error){

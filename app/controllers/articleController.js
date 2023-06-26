@@ -59,6 +59,7 @@ const mainController = {
 
 
         console.log(req.body);
+        console.log(req.file);
         console.log(photo);        
         const article = await dataMapper.AddOneArticle(nom, photo, description, prix_de_depart, date_de_fin, date_et_heure, montant, utilisateur_vente_id, categorie_id);
         // mise à jour de la categorie de l'article via son ID nouvellement crée
