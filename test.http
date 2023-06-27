@@ -82,7 +82,7 @@ POST {{baseUrl}}/api/login
 content-type: application/json
 
 {
-  "adresse_mail": "Test@email.com",
+  "adresse_mail": "Test984@mail.com",
   "mot_de_passe": "1234"
 }
 
@@ -104,9 +104,17 @@ content-type: application/json
 
 {
   "nom": "Testeuh",
-  "prenom": "Test prénom",
+  "prenom": "Paul",
   "adresse": "Test adresse",
-  "adresse_mail": "Test984@mail.com",
+  "adresse_mail": "Test984@mail.com"
+  //"mot_de_passe": "1234"
+}
+
+### modifie le mot de passe de la page profil d'un utilisateur
+PUT {{baseUrl}}/api/profile/4/pwdupdate
+content-type: application/json
+
+{
   "mot_de_passe": "1234"
 }
 

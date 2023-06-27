@@ -80,29 +80,41 @@ const userController = {
   async UpdateProfile(req, res) {
     const id = Number(req.params.id);
     try {
-      const { nom, prenom, adresse, adresse_mail, mot_de_passe } = req.body;
-      const hashedPassword = await bcrypt.hash(mot_de_passe, 10);
-      const profile = await dataMapper.UpdateOneProfile(id, nom, prenom, adresse, adresse_mail, hashedPassword);
-      res.json({ status : 'profile update successful', data : profile }); //!! TODO modifier la condition d'erreur quand l'ID n'existe pas
+      const { nom, prenom, adresse, adresse_mail } = req.body;
+      const profile = await dataMapper.UpdateOneProfile(id, nom, prenom, adresse, adresse_mail);
+      res.json({ status : 'profile update successful', data : profile });
     }
-  catch(error){
-    console.trace(error);
-    res.status(500).send('Error 500');
-  }
-},
+    catch(error){
+      console.trace(error);
+      res.status(500).send('Error 500');
+    }
+  },
+
+  async UpdateProfilePwd(req, res) {
+    const id = Number(req.params.id);
+    try {
+      const hashedPassword = await bcrypt.hash(req.body.mot_de_passe, 10);
+      const profilePwd = await dataMapper.UpdateOneProfilePwd(id, hashedPassword);
+      res.json({ status : 'profile update successful', data : profilePwd });
+    }
+    catch(error){
+      console.trace(error);
+      res.status(500).send('Error 500');
+    }
+  },
 
 
-async DeleteProfile(req, res) {
-  const id = Number(req.params.id);
-  try {
-      const deleteProfile = await dataMapper.DeleteOneProfile(id);
-      res.status(200).json(`Le profile avec l'ID n°${id} a bien été supprimé`);
+  async DeleteProfile(req, res) {
+    const id = Number(req.params.id);
+    try {
+        const deleteProfile = await dataMapper.DeleteOneProfile(id);
+        res.status(200).json(`Le profile avec l'ID n°${id} a bien été supprimé`);
+      }
+    catch(error){
+      console.trace(error);
+      res.status(500).send('Error 500');
     }
-  catch(error){
-    console.trace(error);
-    res.status(500).send('Error 500');
   }
-}
 
 };
 
