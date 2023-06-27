@@ -23,7 +23,7 @@ router.get('/api/article/:id', articleController.OneArticlePage);               
 router.post('/article/creation/add', upload.single('photo'), validate(addArticle, 'body'), articleController.AddArticle);     // ajoute un article dans la BDD
 router.patch('/article/:id/update', validate(updateArticle, 'body'), articleController.UpdateArticle);                        // modifie un article
 router.delete('/article/:id/delete', articleController.DeleteArticle);                                                        // supprime un article grâce grâce son id
-router.get('/api/category/:id/articles', articleController.ArticlesOfOneCategory);                                            // affiche tous les produits d'une catégorie 
+router.get('/api/category/:id/articles', articleController.ArticlesOfOneCategory);                                            // affiche tous les articles d'une catégorie 
 
 
 // routes des categories-----------------------------------------------------------------------------------------

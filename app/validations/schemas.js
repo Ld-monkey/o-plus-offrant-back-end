@@ -46,7 +46,7 @@ const updateProfile = Joi.object({
   prenom: Joi.string().required(),
   adresse: Joi.string(),
   adresse_mail: Joi.string().email().required(),
-  mot_de_passe: Joi.string().required().min(4),
+  mot_de_passe: Joi.string().min(4),
 })
 
 

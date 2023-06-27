@@ -1,0 +1,128 @@
+@baseUrl = http://localhost:4000
+
+
+// routes des articles-----------------------------------------------------------------------------------------
+
+### affiche tous les articles en cours d'enchère
+GET {{baseUrl}}/api/articles
+content-type: application/json
+
+
+### affiche les détails d'un article
+GET {{baseUrl}}/api/article/11
+content-type: application/json
+
+
+### ajoute un article dans la BDD
+POST {{baseUrl}}/article/creation/add
+Content-Type: multipart/form-data; boundary=abcd
+
+--abcd
+Content-Disposition: form-data; nom="test nom"; photo="tire.jpg"; description="test"; prix_de_depart="900"; date_de_fin="2023-06-30"; date_et_heure="2023-06-22"; utilisateur_vente_id="2"; montant="900"; categorie_id="3"
+
+< ./public/images/tire.jpg
+
+--abcd--
+
+
+### modifie un article
+PATCH {{baseUrl}}/article/68/update
+content-type: application/json
+
+{
+  "nom":"WHOUHOU",
+  "description": "WHOUHOU description",
+  "utilisateur_vente_id":1
+}
+
+
+### supprime un article grâce grâce son id
+DELETE {{baseUrl}}/article/68/delete
+content-type: application/json
+
+
+### affiche tous les articles d'une catégorie 
+GET {{baseUrl}}/api/category/4/articles
+content-type: application/json
+
+
+// routes des categories-----------------------------------------------------------------------------------------
+
+### affiche toutes les catégories
+GET {{baseUrl}}/api/categories
+content-type: application/json
+
+
+### ajoute une catégorie
+POST {{baseUrl}}/category/creation/add
+content-type: application/json
+
+{
+  "nom":"Nouvelle catégorie"
+}
+
+
+// Login et autorisations----------------------------------------------------------------------------------------
+
+### ajoute un utilisateur avec mot de passe crypté à la BDD
+POST {{baseUrl}}/api/register
+content-type: application/json
+
+{
+  "prenom": "Nouveau prénom ",
+  "nom": "Nouveau nom",
+  "adresse" : "Nouvelle adresse",
+  "adresse_mail": "Test@email.com",
+  "mot_de_passe": "1234"
+}
+
+
+### identifie un utilisateur via email et mot de passe crypté depuis la BDD
+POST {{baseUrl}}/api/login
+content-type: application/json
+
+{
+  "adresse_mail": "Test@email.com",
+  "mot_de_passe": "1234"
+}
+
+
+### rafraichi le refreshToken du porteur et passe en nouveau accessToken et refreshToken
+POST {{baseUrl}}/api/refresh-token
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIsInByZW5vbSI6Ik5vdXZlYXUgcHLDqW5vbSAiLCJub20iOiJOb3V2ZWF1IG5vbSIsImFkcmVzc2VfbWFpbCI6IlRlc3RAZW1haWwuY29tIiwiaWF0IjoxNjg3ODYwNzYzLCJleHAiOjE2ODc4NjA3OTN9.-UdBqkyVEwx5HjQTot4h03F2GGgejkM3m8E2GD71dwI
+
+
+### affiche des informations pour la page profil d'un utilisateur
+GET {{baseUrl}}/api/profile/4
+content-type: application/json
+
+
+### modifie les informations de la page profil d'un utilisateur
+PATCH {{baseUrl}}/api/profile/4/update
+content-type: application/json
+
+{
+  "nom": "Testeuh",
+  "prenom": "Test prénom",
+  "adresse": "Test adresse",
+  "adresse_mail": "Test984@mail.com",
+  "mot_de_passe": "1234"
+}
+
+
+### supprime le profil d'un utilisateur
+DELETE {{baseUrl}}/api/profile/12/delete
+content-type: application/json
+
+
+// Route du bouton enchérir---------------------------------------------------------------------------------------
+### ajoute le montant en cliquant sur le bouton enchérir
+POST {{baseUrl}}/api/auction
+content-type: application/json
+
+{
+  "prix":800,
+  "articleId":10,
+  "acheteurId":1
+}
