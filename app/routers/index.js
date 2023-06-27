@@ -13,7 +13,7 @@ const userController = require('../controllers/userController.js');
 
 // Middleware d'authorisation et validation--------------------------------------------------------------------
 const auth = require('../models/middlewares/auth.js');
-const { registerUser, loginUser, addArticle, updateArticle, auction, updateProfile } = require('../validations/schemas.js');
+const { registerUser, loginUser, addArticle, updateArticle, auction, updateProfile, updateProfilePwd } = require('../validations/schemas.js');
 const validate = require('../validations/validate.js');
 
 
@@ -37,6 +37,7 @@ router.post('/api/login', validate(loginUser, 'body'), userController.Login);   
 router.post('/api/refresh-token', userController.RefreshToken);                                                               // rafraichi le refreshToken du porteur et passe en nouveau accessToken et refreshToken
 router.get('/api/profile/:id', userController.OneProfilePage);                                                                // affiche des informations pour la page profil d'un utilisateur
 router.patch('/api/profile/:id/update', validate(updateProfile, 'body'), userController.UpdateProfile);                       // modifie les informations de la page profil d'un utilisateur
+router.put('/api/profile/:id/pwdupdate', validate(updateProfilePwd, 'body'), userController.UpdateProfilePwd);                // modifie le mot de passe de la page profil d'un utilisateur
 router.delete('/api/profile/:id/delete', userController.DeleteProfile);                                                       // supprime le profil d'un utilisateur
 
 

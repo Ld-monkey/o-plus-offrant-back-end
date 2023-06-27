@@ -46,9 +46,12 @@ const updateProfile = Joi.object({
   prenom: Joi.string().required(),
   adresse: Joi.string(),
   adresse_mail: Joi.string().email().required(),
+})
+
+const updateProfilePwd = Joi.object({
   mot_de_passe: Joi.string().min(4),
 })
 
 
 
-module.exports = { registerUser, loginUser, addArticle, updateArticle, auction, updateProfile };
+module.exports = { registerUser, loginUser, addArticle, updateArticle, auction, updateProfile, updateProfilePwd };

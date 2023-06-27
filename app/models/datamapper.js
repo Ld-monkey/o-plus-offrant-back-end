@@ -197,10 +197,20 @@ const dataMapper = {
   },
 
   // modifie un profile de la BDD via son ID
-  async UpdateOneProfile(id, nom, prenom, adresse, adresse_mail, hashedPassword) {
+  async UpdateOneProfile(id, nom, prenom, adresse, adresse_mail) {
     const preparedQuery = {
-      text: 'UPDATE "utilisateur" SET "nom" = $2 , "prenom" = $3, "adresse" = $4, "adresse_mail" = $5, "mot_de_passe" = $6 WHERE "id" = $1 RETURNING "id", "nom", "prenom", "adresse", "adresse_mail", "mot_de_passe"',
-      values: [id, nom, prenom, adresse, adresse_mail, hashedPassword],
+      text: 'UPDATE "utilisateur" SET "nom" = $2 , "prenom" = $3, "adresse" = $4, "adresse_mail" = $5 WHERE "id" = $1 RETURNING "id", "nom", "prenom", "adresse", "adresse_mail"',
+      values: [id, nom, prenom, adresse, adresse_mail],
+    };
+    const updatedProfile = await client.query(preparedQuery);
+    return updatedProfile.rows[0];
+  },
+
+  // modifie le mot de passe du profile de la BDD via son ID
+  async UpdateOneProfilePwd(id, hashedPassword) {
+    const preparedQuery = {
+      text: 'UPDATE "utilisateur" SET "mot_de_passe" = $2 WHERE "id" = $1 RETURNING "id", "mot_de_passe"',
+      values: [id, hashedPassword],
     };
     const updatedProfile = await client.query(preparedQuery);
     return updatedProfile.rows[0];
