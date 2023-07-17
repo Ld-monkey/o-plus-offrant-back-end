@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon index.js",
+    "dev": "npx nodemon index.js",
     "start": "node index.js",
     "db:create": "psql -U opluso -d o_plus_offrant -f ./data/deploy/init.sql",
     "db:populate": "psql -U opluso -d o_plus_offrant -f ./data/seeding/seeding.sql",
