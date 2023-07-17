@@ -60,8 +60,12 @@ app.use(router);
 /**
  * Socket.io
  */
-io.on('connection', (data) => {
-  console.log(`User connected : ${data.id}`);
+io.on('connection', (ws) => {
+  console.log(`User connected : ${ws.id}`);
+
+  ws.on('send_message', (data) => {
+    console.log(data);
+  });
 });
 
 server.listen(port, () => {
