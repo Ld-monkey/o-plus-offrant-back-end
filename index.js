@@ -61,10 +61,14 @@ app.use(router);
  * Socket.io
  */
 io.on('connection', (ws) => {
-  console.log(`User connected : ${ws.id}`);
+  // Each item has a unique room. The user joins this room when he is on a specific article.
+  ws.on('room', (room) => {
+    ws.join(room);
+  });
 
-  ws.on('send_message', (data) => {
-    console.log(data);
+  // If someone bids on an article, "notify" all users connected to this room.
+  ws.on('bid_event', (room) => {
+    io.in(room).emit('update_history_article');
   });
 });
 
