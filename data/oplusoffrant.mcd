@@ -1,0 +1,10 @@
+### code MOCODO pour le MCD ###
+
+favoris, 0N utilisateur, 0N article 
+acheter, ON utilisateur, 01 article
+utilisateur: code_utilisateur, adresse_mail, nom, prenom, mot_de_passe
+encherir, ON utilisateur, 0N article: 
+article : code_article, nom, photo, description, prix_de_depart, date_de_fin, montant, date_et_heure
+vendre, ON utilisateur, 11 article
+detenir, 1N article, 0N categorie
+categorie: code_categorie, nom
